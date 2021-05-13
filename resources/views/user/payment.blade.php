@@ -11,7 +11,8 @@
                     <h1>Payment</h1>
                 </div>
             </div>
-            <form action="functions.php?id={{$pemesanan->villa_id}}" method="POST" enctype="multipart/form-data">
+            <form action="/bayar" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="row justify-content-center mt-5">
                     <div class="col-5 border-right text-dark py-5">
                         <h5>Transfer Pembayaran : <br> <br>
@@ -26,7 +27,7 @@
                                 <dd>Farhan Anshari</dd>
                             </dl>
                         </div>
-                        <div class="mt-4">
+                        <div class="mt-4"> 
                             <img src="/asset/elements/mandiri.png" alt="logo-bca" width="123px" height="80px" class="float-left mr-4">
                             <dl>
                                 <dd>Bank Mandiri</dd>
@@ -57,7 +58,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
                 <div class="row justify-content-center mt-4 mb-4">
                     <div class="col-5 text-right mr-5">
                         <button type="submit" name="hapusPemesanan" class="btn tombol">Cencel</button>
@@ -66,6 +66,9 @@
                         <button type="submit" name="pembayaranVilla" class="btn tombol">Checkout</button>
                     </div>
                 </div>
+                </form>
+                </div>
+
             </form>
         </section>
         <!-- Akhir Main -->

@@ -1,27 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Pemesanan;
 
 class PemesananController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create($id)
     {
         // $pemesanan = DB::table('tbl_pemesanan')->where('villa_id',$id)->get();
@@ -29,12 +14,6 @@ class PemesananController extends Controller
         // return view('user.booking-informations', ['villa'=>$villa[0]]);        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         DB::table('tbl_pemesanan')->insert(
@@ -48,49 +27,21 @@ class PemesananController extends Controller
         return view('user.booking-informations', ['villa'=>$villa[0]]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $pemesanan = DB::table('tbl_pemesanan')->where('villa_id',$id)->get();
         return view('user.payment', ['pemesanan'=>$pemesanan[0]]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function bayar($id)
     {
-        //
+        echo "string";
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function detail($id)
     {
-        //
+        $det_pes = Pemesanan::where('id', $id)->first();
+        return view('admin.pemesanan_detail', ['pesanan'=>$det_pes]);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }
