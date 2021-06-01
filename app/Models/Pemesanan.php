@@ -14,5 +14,5 @@ class Pemesanan extends Model
     public function villa()
     {
     	return $this->belongsTo(Villa::class); 
-    } 
+    }
 }

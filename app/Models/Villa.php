@@ -9,4 +9,9 @@ class Villa extends Model
 {
     use HasFactory;
     protected $table = 'tbl_villa';
+
+    public function pesanan()
+    {
+    	return $this->hasOne(Pemesanan::class); 
+    }
 }

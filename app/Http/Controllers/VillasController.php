@@ -5,24 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Villa;
-
+use App\Models\Pemesanan;
+use App\Models\User;
+use App\Models\Testi;
+ 
 class VillasController extends Controller
 {
-
+ 
     public function index()
     {
-        $jawa = DB::table('tbl_villa')->where('pulau', "Jawa")->get();
-        $kalimantan = DB::table('tbl_villa')->where('pulau', "Kalimantan")->get();
-        $bali = DB::table('tbl_villa')->where('pulau', "Bali")->get();
-
-        return view('user.index', ['jawa' => $jawa, 'kalimantan' => $kalimantan, 'bali' => $bali]);
+        $laris = Pemesanan::all();
+        // $laris = DB::table('tbl_pemesanan')
+        //     ->join('tbl_villa', 'tbl_villa.id', '=', 'tbl_pemesanan.villa_id')
+        //     ->distinct('villa_id')->get();
+        $jawa = Villa::where('pulau', "Jawa")->get();
+        $kalimantan = Villa::where('pulau', "Kalimantan")->get();
+        $bali = Villa::where('pulau', "Bali")->get();
+        $testi = Testi::all();
+        return view('user.index', ['jawa' => $jawa, 'kalimantan' => $kalimantan, 'bali' => $bali, 'laris'=>$laris->unique('villa_id'), 'testi'=>$testi]);
     }
-
-    public function create($id)
-    {
-
-    }
-
+ 
     public function store(Request $request)
     {
         $villa = new Villa;
@@ -41,8 +43,8 @@ class VillasController extends Controller
 
             $tujuan_upload = 'image';
             $foto_utama->move($tujuan_upload,$nama_utama);
-            // echo "string";
-            // die;
+            $foto_indoor->move($tujuan_upload,$nama_indoor);
+            $foto_outdoor->move($tujuan_upload,$nama_outdoor);
 
             $villa->foto_utama = 'image/'.$nama_utama;
             $villa->foto_indoor = 'image/'.$nama_indoor;
@@ -60,20 +62,22 @@ class VillasController extends Controller
         return redirect('/admin');
     }
 
+    public function testi(Request $request)
+    {
+        $testi = new Testi;
+        if(isset($_POST['tambahtesti'])){
+            $testi->user_id = auth()->user()->id;
+            $testi->testimoni = $request->pendapat;
+
+            $testi->save();
+        }
+        return redirect('/');
+    }
+
     public function show($id)
     {
         $villa = DB::table('tbl_villa')->where('id', $id)->get();
         return view('user.properties', ['villa'=>$villa[0]]);
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     public function detail($id)

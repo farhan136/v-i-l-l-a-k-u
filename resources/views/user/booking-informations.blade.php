@@ -1,5 +1,5 @@
 @extends('layout.main')<!-- untuk mengambil template main -->
-@section('judul', 'VILLAKU') <!-- untuk section yang bernama title, ganti dengan villaku -->
+@section('judul', 'Booking Information') <!-- untuk section yang bernama title, ganti dengan villaku -->
 @section('isi')
 @include('layout.navbar')
     <!-- Main -->
@@ -13,15 +13,15 @@
  
             <div class="booking-information">
                 <div class="row mt-4 mb-3">
-                    <img src="/{{$villa->foto_utama}}" alt="" class="img-cover">
+                    <img src="/{{$pesanan->villa->foto_utama}}" alt="" class="img-cover">
                 </div>
                 <div class="row justify-content-center ">
                     <div class="col-2 pl-5">
-                        <h5 class="text-dark"><span>{{$villa->villa}}</span></h5>
-                        <p><span>{{$villa->provinsi}}</span>, <span>Indonesia</span></p>
+                        <h5 class="text-dark"><span>{{$pesanan->villa->villa}}</span></h5>
+                        <p><span>{{$pesanan->villa->provinsi}}</span>, <span>Indonesia</span></p>
                     </div>
                     <div class="col-3 text-right pr-5 mt-n3">
-                        <p class="text-secondary"><p>Pembayaran senilai <span>{{$villa->harga}}$</span> belum termasuk PPN </p>
+                        <p class="text-secondary"><p>Pembayaran senilai <span>{{$pesanan->total_harga}}$</span> belum termasuk PPN </p>
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                         </form>
                     </div>
                     <div class="col-5 text-left">
-                        <a href="/payment/{{$villa->id}}">
+                        <a href="/payment/{{$pesanan->id}}">
                             <button type="submit" class="btn tombol">Lanjutkan</button>
                         </a>
                     </div>

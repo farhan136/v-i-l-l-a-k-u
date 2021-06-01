@@ -52,3 +52,11 @@ $qty_minus.click(function(e){
         });
     }
 });
+
+$(document).ready(function(){
+    let harga = $('#harga').html();
+    let malam = $('#malam').val();
+    $('#malam').click(function(){
+        $('#total_harga').text($('#malam_banget').val()* harga +'$');//this menggantikan #malam
+    });
+});

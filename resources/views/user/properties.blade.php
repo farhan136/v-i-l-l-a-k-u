@@ -1,5 +1,5 @@
 @extends('layout.main')<!-- untuk mengambil template main -->
-@section('judul', 'VILLAKU') <!-- untuk section yang bernama title, ganti dengan villaku -->
+@section('judul', 'Detail Villa') <!-- untuk section yang bernama title, ganti dengan villaku -->
 @section('isi')
 
     <!-- Container -->
@@ -43,7 +43,7 @@
                         <div class="input-number">
                             <div class="input-label">
                                 <h3>
-                                    <span>{{$villa->harga}}$</span>
+                                    <span id="harga">{{$villa->harga}}</span>
                                     <span class="text-muted">per malam</span>
                                 </h3>
                             </div>
@@ -53,11 +53,11 @@
                                 <div class="date-title">
                                     <h5 class="mt-2">Berapa lama?</h5>
                                     <input type="hidden" value="{{$villa->id}}" name="villa_id">
-                                    <div class="input-group">
+                                    <div class="input-group" id="malam">
                                         <div class="input-group-prepend">
                                             <button type="button" data-id="villa" class="input-group-text minus">-</button>
                                         </div>
-                                        <input readonly data-id="villa" class="qty_input form-control rounded-0 text-center" value="1" name="malam">
+                                        <input readonly data-id="villa" class="qty_input form-control rounded-0 text-center" value="1" name="malam" id="malam_banget">
                                         <div class="input-group-append">
                                             <button type="button" data-id="villa" class="input-group-text plus">+</button>
                                         </div>
@@ -68,14 +68,14 @@
                                             <span>
                                                 <img src="{{ asset('/asset/elements/iconvilla-06.png') }}" alt="icon calendar" class="icon-calendar" height="40px">
                                             </span>
-                                            <input type="date" class="form-control datedropper-start text-center pl-0" data-dd-format="Y-m-d"  placeholder="Mulai" data-datedropper name="mulai">
+                                            <input type="date" class="form-control datedropper-start text-center pl-0" data-dd-format="Y-m-d"  placeholder="Mulai" data-datedropper name="mulai" id="mulai">
                                             <span>
                                                 <img src="{{ asset('/asset/elements/iconvilla-06.png') }}" alt="icon calendar" class="icon-calendar" height="40px">
                                             </span>
-                                            <input type="date" class="form-control datedropper-end text-center pl-0" data-dd-format="Y-m-d" placeholder="Selesai" data-datedropper name="selesai">
+                                            <input type="date" class="form-control datedropper-end text-center pl-0" data-dd-format="Y-m-d" placeholder="Selesai" data-datedropper name="selesai" id="selesai">
                                         </div>
                                     </div>
-                                    <p>Anda akan membayar total senilai <span class="total-price">{{$villa->harga}}$</span></p>
+                                    <p>Anda akan membayar total senilai <span class="total-price" id="total_harga">{{$villa->harga}}$</span></p>
                                     <input type="hidden" value="{{$villa->harga}}" name="total_harga">
                                     <button type="submit" class="btn btn-block" name="booking">Booking!</button>
                                 </div>

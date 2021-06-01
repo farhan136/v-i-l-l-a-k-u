@@ -15,23 +15,22 @@
                             <div class="text-center">
                                 <img src="{{asset('asset/logo1.png')}}" alt="logo-login" class="w-50 mb-4">
                             </div>
-                            <?php
-                            if(isset($_SESSION['status']) && $_SESSION['status'] !='')
-                            {
-                                echo '<h6 class="text-dark text-center" style="font-size: 12px"> '.$_SESSION['status'].' </h6>';
-                                unset($_SESSION['status']);
-                            };
-                            ?>
-                            <form action="code" method="POST">
-                            	@method('get')
+                            @if (session('Message'))
+                            <div class="alert alert-danger">
+                                {{ session('Message') }}
+                            </div>
+                            @endif
+                            <form action="{{url('/code')}}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label for="username">Username</label>
                                     <input type="username" name="username" class="form-control" id="username">
+                                    @error('email') {{$message}} @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <input type="password" name="password" class="form-control" id="password">
+                                    @error('password') {{$message}} @enderror
                                 </div>
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input">

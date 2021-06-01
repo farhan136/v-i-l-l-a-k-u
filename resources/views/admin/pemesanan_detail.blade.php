@@ -1,7 +1,6 @@
 @extends('admin.index')<!-- untuk mengambil template main -->
 @section('judul', 'Detail Pemesanan')
 @section('isi')
-<?php dd($pesanan['mulai']); ?>
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header d-sm-flex align-items-center justify-content-between">
@@ -28,25 +27,27 @@
                     </tbody>
                 </table>
                 </div>
+                @isset($payment)
                 <div class="col-8">
                 <h4 class="font-weight-bold text-dark">Pembayaran</h4>
                 <table>
                     <tbody>
                     <tr>
                         <td>Nama </td>
-                        <td>: {{$pesanan->nama_pengirim}}</td>
+                        <td>: {{$payment->nama_pengirim}}</td>
                     </tr>
                     <tr>
                         <td>Asal Bank </td>
-                        <td>: {{$pesanan->asal_bank}}</td>
+                        <td>: {{$payment->asal_bank}}</td>
                     </tr>
                     <tr>
                         <td>Nomor HP </td>
-                        <td>: {{$pesanan->no_pengirim}}</td>
+                        <td>: {{$payment->no_pengirim}}</td>
                     </tr>
                     </tbody>
                 </table>
                 </div>
+                @endisset
                 <div class="col-12 mt-3">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataModalTable" width="100%" cellspacing="0">
@@ -56,16 +57,14 @@
                                     <th>Villa</th>
                                     <th>Foto Villa</th>
                                     <th>Alamat</th>
-                                    <th>Bukti</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><?= $order['id']; ?></td>
-                                    <td><?= $villa['villa']; ?></td>
-                                    <td><img src="../<?= $villa['foto_utama']; ?>" alt="villa-pemesanan" height="100px"></td>
-                                    <td><?= $villa['alamat']; ?></td>
-                                    <td><img src="image/bukti/<?= $order['upload_bukti']; ?>" alt="bukti-pembayaran" height="100px"></td>
+                                    <td>{{$pesanan->villa->id}}</td>
+                                    <td>{{$pesanan->villa->villa}}</td>
+                                    <td><img src="/{{$pesanan->villa->foto_utama}}" alt="villa-pemesanan" height="100px"></td>
+                                    <td>{{$pesanan->villa->alamat}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -80,11 +79,11 @@
                     </tr>
                     <tr>
                         <td>Sub Total</td>
-                        <td>: <?= $villa['harga']; ?>$</td>
+                        <td>: {{$pesanan->villa->harga}}$</td>
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td>: <?= ($order['total_harga'] * 0.15) + $order['total_harga']; ?>$</td>
+                        <td>: {{$pesanan->villa->id * 0.15 + $pesanan->villa->harga}}$</td>
                     </tr>
                     </tbody>
                 </table>

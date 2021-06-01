@@ -4,32 +4,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Pemesanan;
+use App\Models\Payment;
 
 class PemesananController extends Controller
 {
-    public function create($id)
-    {
-        // $pemesanan = DB::table('tbl_pemesanan')->where('villa_id',$id)->get();
-        // $villa = DB::table('tbl_villa')->where('id', $id)->get();
-        // return view('user.booking-informations', ['villa'=>$villa[0]]);        
-    }
-
     public function store(Request $request)
     {
+        $total = $request->total_harga * $request->malam;
         DB::table('tbl_pemesanan')->insert(
         ['villa_id'=>$request->villa_id,
         'mulai'=>$request->mulai,
         'selesai'=>$request->selesai,
         'malam'=>$request->malam,
-        'total_harga'=>$request->total_harga
+        'total_harga'=>$total
         ]);
-        $villa = DB::table('tbl_villa')->where('id', $request->villa_id)->get();
-        return view('user.booking-informations', ['villa'=>$villa[0]]);
+        $pesanan = Pemesanan::all();
+        return view('user.booking-informations', ['pesanan'=>$pesanan->last()]);
     }
 
     public function show($id)
     {
-        $pemesanan = DB::table('tbl_pemesanan')->where('villa_id',$id)->get();
+        $pemesanan = Pemesanan::where('id', $id)->get();
         return view('user.payment', ['pemesanan'=>$pemesanan[0]]);
     }
 
@@ -41,7 +36,8 @@ class PemesananController extends Controller
     public function detail($id)
     {
         $det_pes = Pemesanan::where('id', $id)->first();
-        return view('admin.pemesanan_detail', ['pesanan'=>$det_pes]);
+        $det_pay = Payment::where('pemesanan_id', $id)->first();
+        return view('admin.pemesanan_detail', ['pesanan'=>$det_pes, 'payment'=>$det_pay]);
     }
     
 }

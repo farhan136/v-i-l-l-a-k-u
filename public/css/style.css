@@ -2,6 +2,7 @@
 body {
     background-color: #FCFCFC;
     font-family: Poppins;
+
 }
 
 h1, h2, h3, h4, h5 {
@@ -208,6 +209,7 @@ a {
     background-color: #CBBB9E;
     margin-top: 60px;
 }
+
 
 .opinion h2 {
     color: white;
@@ -451,4 +453,15 @@ label {
     border-radius: 10px;
     border: none;
     background-color: #E9E9E9;
+}
+
+.sukses{
+    margin: auto;
+    text-align: center;
+    /*border-radius: 20px;*/
+}
+.sukses img{
+    border-radius: 20px;
+    height: 500px;
+    margin-bottom: 20px;
 }

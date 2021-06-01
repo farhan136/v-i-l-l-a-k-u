@@ -9,7 +9,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6 pl-0 pb-2">
-                    <img src="{{$detail->foto_utama}}" class="img-cover" alt="" height="280px" width="100%">
+                    <img src="/{{$detail->foto_utama}}" class="img-cover" alt="" height="280px" width="100%">
                 </div>
                 <div class="col-6 p-0">
                     <table class="table">
@@ -42,10 +42,10 @@
                     </table>
                 </div>
                 <div class="col-3 pl-0 mb-5">
-                    <img src="{{$detail->foto_indoor}}" class="img-cover" alt="" height="180px" width="100%">
+                    <img src="/{{$detail->foto_indoor}}" class="img-cover" alt="" height="180px" width="100%">
                 </div>
                 <div class="col-3 pl-0">
-                    <img src="{{$detail->foto_outdoor}}" class="img-cover" alt="" height="180px" width="100%">
+                    <img src="/{{$detail->foto_outdoor}}" class="img-cover" alt="" height="180px" width="100%">
                 </div>
                 <div class="col-6">
                     <span>Deskripsi</span>

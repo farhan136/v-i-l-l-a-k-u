@@ -6,11 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTblPembayaranTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('tbl_pembayaran', function (Blueprint $table) {

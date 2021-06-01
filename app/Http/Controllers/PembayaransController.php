@@ -1,15 +1,13 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\Pemesanan;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use PDF;
 
 class PembayaransController extends Controller
-{
-    public function upload(Request $request){
-        return view('user.payment');
-    }
+{ 
     public function proses_upload(Request $request){
         if(isset($_POST['pembayaranVilla'])){    
         
@@ -26,26 +24,9 @@ class PembayaransController extends Controller
 
         // nama file
         $nama = $file->getClientOriginalName();
-        echo 'File Name: '.$nama;
-        echo '<br>';
-        
-        // ekstensi file
-        echo 'File Extension: '.$file->Extension();
-        echo '<br>';
- 
-        // real path
-        echo 'File Real Path: '.$file->getRealPath();
-        echo '<br>';
- 
-        // ukuran file
-        echo 'File Size: '.$file->getSize();
-        echo '<br>';
- 
-        // tipe mime
-        echo 'File Mime Type: '.$file->getMimeType();  
-        
+
         // isi dengan nama folder tempat kemana file diupload        
-        $file->storeAs('public', $nama); //$nama adalah nama foto di folder penyimpanan
+        $file->move('image.bukti', $nama); //$nama adalah nama foto di folder penyimpanan
 
         $payment = new Payment;
         $payment->upload_bukti = $nama;
@@ -55,10 +36,18 @@ class PembayaransController extends Controller
         $payment->pemesanan_id = $request->pemesanan_id;
         $payment->save();
 
-        // //upload ke db
-        // Payment::create($request->all()); //all diambil dari fillable di model
-
-        return redirect('/');
+        return view('user.sukses');
         }
+    }
+
+    public function cetak_pdf() 
+    {
+        $pesanan = Pemesanan::all();
+        $payment = Payment::all();
+        // dd($pesanan->last());
+        $pdf = PDF::loadview('user.bukti_pdf',['pesanan'=>$pesanan->last(), 'payment'=>$payment->last()]);
+        // $pdf = PDF::loadHTML('<h1>Test</h1>');
+        // $pdf = PDF::loadview('user.login');
+        return $pdf->stream();
     }
 }

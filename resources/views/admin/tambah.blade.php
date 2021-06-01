@@ -1,6 +1,3 @@
-@extends('admin.index')<!-- untuk mengambil template main -->
-@section('judul', 'Tambah Villa')
-@section('isi')
 <div class="modal fade" id="dashboardModalTambah" tabindex="-1" aria-labelledby="dashboardModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -63,4 +60,3 @@
         </div>
     </div>
 </div>
-@endsection
