@@ -25,13 +25,10 @@
                   @foreach($global[0] as $g)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$g->villa->villa}}</td><!-- mengambil nama villa dari tabel villa -->
+                    <td>{{$g->villa->villa}}</td>
                     <td>{{$g->mulai}}</td>
                     <td>{{$g->selesai}}</td>
                     <td>${{$g->total_harga}}</td>
-                    <!-- <td>
-                      <img src="{{ 'storage/app/public/$g->payment->upload_bukti'}}" class="img-cover" alt="" height="100px">
-                    </td> -->
                     <td class="text-center">
                       <button class="btn btn-info text-white">
                         <a href="detailpesanan/{{$g->id}}" class="text-white"><i class="far fa-eye"></i></a>
@@ -40,7 +37,7 @@
                         <a href="edit/{{$g->id}}" class="text-white"><i class="fas fa-edit"></i></a>
                       </button>
                       <button class="btn btn-danger">
-                        <a href="code/{{$g->id}}" class="text-white"><i class="far fa-trash-alt"></i></a>
+                        <a href="/hapuspesanan/{{$g->id}}" class="text-white"><i class="far fa-trash-alt"></i></a>
                       </button>
                     </td>
                   </tr>

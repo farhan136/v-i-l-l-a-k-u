@@ -118,7 +118,7 @@
                   <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                        Yusuf
+                        {{session('nama_admin')}}
                       </span>
                       <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                     </a>
@@ -145,6 +145,7 @@
 
               <!-- Custom scripts for all pages-->
               <script src="{{ asset('/js/sb-admin-2.min.js') }}"></script>
+              <script src="{{ asset('/js/index.js') }}"></script>
 
               <!-- Page level plugins -->
               <script src="{{ asset('/vendor/datatables/jquery.dataTables.min.js') }}"></script>

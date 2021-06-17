@@ -54,6 +54,7 @@
                     </div>
                 </div>
             </div>
+            <a href="/admin" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>

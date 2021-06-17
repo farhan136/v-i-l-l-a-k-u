@@ -44,28 +44,25 @@
                             <input type="file" name="upload_bukti" class="form-control">
                         </div>
                         <label for="asal-bank">Asal Bank</label>
-                       <!--  <div class="input-group mb-2">
-                            <input type="text" name="asal_bank" class="form-control" placeholder="Plaase type here..">
-                        </div> -->
                         <div class="input-group mb-2">
                             <select name="asal_bank">
-                              <option value="BCA" selected>BCA</option>
-                              <option value="BNI">BNI</option>
-                              <option value="Mandiri">Mandiri</option>
-                              <option value="Bank DKI">Bank DKI</option>
-                              <option value="BRI">BRI</option>
-                          </select>
-                      </div>
-                      <label for="ho-pemesan">Nomor HP</label>
-                      <div class="input-group mb-2">
-                        <input type="text" name="no_pengirim" class="form-control" placeholder="Plaase type here..">
-                    </div>
-                    <label for="nama-pengirim">Nama Pengirim</label>
-                    <div class="input-group">
-                        <input type="text" name="nama_pengirim" class="form-control" placeholder="Plaase type here..">
+                                <option value="BCA" selected>BCA</option>
+                                <option value="BNI">BNI</option>
+                                <option value="Mandiri">Mandiri</option>
+                                <option value="Bank DKI">Bank DKI</option>
+                                <option value="BRI">BRI</option>
+                            </select>
+                        </div>
+                        <label for="ho-pemesan">Nomor HP</label>
+                        <div class="input-group mb-2">
+                            <input type="text" name="no_pengirim" class="form-control" placeholder="Plaase type here..">
+                        </div>
+                        <label for="nama-pengirim">Nama Pengirim</label>
+                        <div class="input-group">
+                            <input type="text" name="nama_pengirim" class="form-control" placeholder="Plaase type here..">
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
         <div class="row justify-content-center mt-4 mb-4">
             <div class="col-5 text-right mr-5">

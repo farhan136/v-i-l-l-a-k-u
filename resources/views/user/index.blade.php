@@ -1,13 +1,11 @@
 @extends('layout.main')<!-- untuk mengambil template main -->
 @section('judul', 'VILLAKU') <!-- untuk section yang bernama title, ganti dengan villaku -->
 @section('isi')
- 
+
 @include('layout.header')
 
 <section class="main">
-<!-- Card Body -->
     <div class="card-body">
-        <!-- Paling Laris -->
         <div class="jawa">
             <h3>Paling Laris</h3>
             <div class="row owl-carousel owl-theme owl-loaded">
@@ -127,8 +125,8 @@
             </div>
         </div>
         
-    <!-- Akhir Konten Gabungan Latar Belakang dan Mewah -->
-</section>
+        <!-- Akhir Konten Gabungan Latar Belakang dan Mewah -->
+    </section>
 </div>
 
 @include('user.testi')

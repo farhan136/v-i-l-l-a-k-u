@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="text-center">
-                            	Registrasi User
+                            	Login User
                             </div>
                             
                             <form action="loginuser" method="POST">

@@ -26,14 +26,16 @@
             @foreach($user as $user)
             <tr>
               <td>{{$loop->iteration}}</td>
-              <td>{{$user->name}}</td><!-- mengambil nama villa dari tabel villa -->
+              <td>{{$user->name}}</td>
               <td>{{$user->email}}</td>
               <td><img src="/image/user/{{$user->foto}}" class="fotouser"></td>
               <td>{{$user->pekerjaan}}</td>
-              <td>{{$user->testi->testimoni}}</td>>
+              <td>@isset($user->testi->testimoni)
+                {{$user->testi->testimoni}}
+              @endisset</td>>
               <td class="text-center">
                 <button class="btn btn-danger">
-                  <a href="code/{{$user->id}}" class="text-white"><i class="far fa-trash-alt"></i></a>
+                  <a href="/hapusUser/{{$user->id}}" class="text-white"><i class="far fa-trash-alt"></i></a>
                 </button>
               </td>
             </tr>

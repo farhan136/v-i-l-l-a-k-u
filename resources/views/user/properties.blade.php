@@ -65,13 +65,7 @@
                                     <h5 class="mt-3">Pilih tanggal</h5>
                                     <div class="input-group">
                                         <div class="calendar input-group-prepend">
-                                            <span>
-                                                <img src="{{ asset('/asset/elements/iconvilla-06.png') }}" alt="icon calendar" class="icon-calendar" height="40px">
-                                            </span>
                                             <input type="date" class="form-control datedropper-start text-center pl-0" data-dd-format="Y-m-d"  placeholder="Mulai" data-datedropper name="mulai" id="mulai">
-                                            <span>
-                                                <img src="{{ asset('/asset/elements/iconvilla-06.png') }}" alt="icon calendar" class="icon-calendar" height="40px">
-                                            </span>
                                             <input type="date" class="form-control datedropper-end text-center pl-0" data-dd-format="Y-m-d" placeholder="Selesai" data-datedropper name="selesai" id="selesai">
                                         </div>
                                     </div>

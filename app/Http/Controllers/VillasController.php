@@ -15,9 +15,6 @@ class VillasController extends Controller
     public function index()
     {
         $laris = Pemesanan::all();
-        // $laris = DB::table('tbl_pemesanan')
-        //     ->join('tbl_villa', 'tbl_villa.id', '=', 'tbl_pemesanan.villa_id')
-        //     ->distinct('villa_id')->get();
         $jawa = Villa::where('pulau', "Jawa")->get();
         $kalimantan = Villa::where('pulau', "Kalimantan")->get();
         $bali = Villa::where('pulau', "Bali")->get();

@@ -11,9 +11,9 @@
           <a class="nav-link" href="#">About</a>
         </li>
         <li class="nav-item">
-          @auth 
+          @if(null!==session('nama')) 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#">{{auth()->user()->name}}</a>
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#">{{session('nama')}}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{{url('/testi')}}">Testi</a>
               <a class="dropdown-item" href="{{url('/logoutuser')}}">Logout</a>
@@ -22,7 +22,7 @@
 
           @else
           <a class="nav-link" href="{{url('/loginuser')}}">Login</a>
-          @endauth
+          @endif
         </li>
         
       </li>

@@ -7,15 +7,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Villa;
 use App\Models\Pemesanan;
-use Illuminate\Support\Facades\Auth;
 
 class AdminsController extends Controller
 {
-    public function index(){
-        $villas = DB::table('tbl_villa')->get();
-        return view('admin.home', ['villa'=>$villas]);
-    }
 
     public function login(Request $request){ 
         request()->validate([
@@ -25,23 +21,38 @@ class AdminsController extends Controller
         $cocok = Admin::where('username', $request->username)->firstOrFail(); //menampilkan data user yang emailnya sama dengan email yang dimasukkan pengguna
         if($cocok){
             if($request->password=$cocok->password){ //mengecek apakah parameter pertama jika di hash sama dengan parameter kedua
-          session(['login_admin' => 'true', 'nama'=>$cocok->nama]);
+          session(['login_admin' => 'true', 'nama_admin' => $cocok->nama]);
           return redirect('/admin');
         }
 
       }
-        // if (Auth::guard('admin')->attempt(['username'=>$request->username, 'password'=>$request->password])) {
-        //     return redirect('/admin');
-        // }
         return redirect('/loginadmin')->with('Message', 'Email atau Password Salah');
     }
 
-      public function logout(Request $request){
-        Auth::logout();
+    public function logout(Request $request){
+        $request->session()->flush();
         return redirect('/loginadmin');
     }
+
+    public function index(){
+        $villas = Villa::all();
+        return view('admin.home', ['villa'=>$villas]);
+    }
     
-    public function pesanan(){
+    public function editvilla($id){
+        $cocok = Villa::find($id);//ambil data villa berdasarkan id nya
+        return view('admin.home_edit', ['cocok'=>$cocok]);
+    }
+
+    public function hapusvilla($id){
+        $cocok = Villa::find($id);//ambil data villa berdasarkan id nya
+        $cocok->delete();
+        return view('admin.home');
+    }
+
+    public function hapuspesanan($id){
+        $cocok = Pemesanan::find($id);//ambil data pemesanan berdasarkan id nya
+        $cocok->delete();
         return view('admin.pemesanan');
     }
 
@@ -50,4 +61,27 @@ class AdminsController extends Controller
         return view('admin.user', ['user'=>$user]);
     }
 
+    public function hapususer($id){
+        $cocok = User::find($id);//ambil data user berdasarkan id nya
+        $cocok->delete();
+        return redirect()->back();
+    }
+
+    public function updatevilla(Request $request, $id)
+    {
+        $cocok = Villa::find($id);
+
+        $cocok->villa = $request->villa;
+        $cocok->provinsi = $request->provinsi;
+        $cocok->pulau = $request->pulau;
+        $cocok->alamat = $request->alamat;
+        $cocok->nomor_hp = $request->nomor_hp;
+        $cocok->harga = $request->harga;
+        $cocok->deskripsi = $request->deskripsi;
+
+        $cocok->save();
+
+        return redirect('/admin');
+
+    }
 }

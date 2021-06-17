@@ -12,21 +12,21 @@
                 <h4 class="font-weight-bold text-dark">Pemesanan</h4>
                 <table>
                     <tbody>
-                    <tr>
-                        <td>Mulai </td>
-                        <td>: {{$pesanan->mulai}}</td>
-                    </tr>
-                    <tr>
-                        <td>Selesai </td>
-                        <td>: {{$pesanan->selesai}}</td>
-                    </tr>
-                    <tr>
-                        <td>Malam </td>
-                        <td>: {{$pesanan->malam}}</td>
-                    </tr>
+                        <tr>
+                            <td>Mulai </td>
+                            <td>: {{$pesanan->mulai}}</td>
+                        </tr>
+                        <tr>
+                            <td>Selesai </td>
+                            <td>: {{$pesanan->selesai}}</td>
+                        </tr>
+                        <tr>
+                            <td>Malam </td>
+                            <td>: {{$pesanan->malam}}</td>
+                        </tr>
                     </tbody>
                 </table>
-                </div>
+            </div>
                 @isset($payment)
                 <div class="col-8">
                 <h4 class="font-weight-bold text-dark">Pembayaran</h4>

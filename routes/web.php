@@ -1,7 +1,6 @@
 <?php
  
 use Illuminate\Support\Facades\Route;
-
 Route::view('/loginuser', 'user.login');
 Route::view('/daftaruser', 'user.register');
 
@@ -24,12 +23,19 @@ Route::post('/code', 'App\Http\Controllers\AdminsController@login');
 Route::group(['middleware'=>'CekLoginAdmin'], function(){
 // Route::group(['middleware'=>'auth'], function(){//middleware untuk security
 	Route::get('/admin', 'App\Http\Controllers\AdminsController@index'); 
-	Route::get('/admin/pemesanan', 'App\Http\Controllers\AdminsController@pesanan');
-	Route::get('/logoutadmin', 'App\Http\Controllers\AdminsController@logout');
+	Route::get('editvilla/{id}', 'App\Http\Controllers\AdminsController@editvilla');
+	Route::post('editvilla/update/{id}', 'App\Http\Controllers\AdminsController@updatevilla');
+	Route::get('hapusvilla/{id}', 'App\Http\Controllers\AdminsController@hapusvilla');
+
+	Route::view('/admin/pemesanan', 'admin.pemesanan');
+	Route::get('/hapuspesanan/{id}', 'App\Http\Controllers\AdminsController@hapuspesanan');
+
 	Route::get('/admin/users', 'App\Http\Controllers\AdminsController@user');
+	Route::get('/hapusUser/{id}', 'App\Http\Controllers\AdminsController@hapususer');
+
+	Route::get('/logoutadmin', 'App\Http\Controllers\AdminsController@logout');
 });
 
-Route::post('/loginuser', 'App\Http\Controllers\OtentikasiController@login');
+Route::post('loginuser', 'App\Http\Controllers\OtentikasiController@login');
 Route::get('/logoutuser', 'App\Http\Controllers\OtentikasiController@logout');
 Route::post('/daftaruser', 'App\Http\Controllers\OtentikasiController@daftar');
-
