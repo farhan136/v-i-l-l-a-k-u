@@ -12,6 +12,7 @@ class Villa extends Model
 
     public function pesanan()
     {
-    	return $this->hasOne(Pemesanan::class); 
+    	return $this->hasMany(Pemesanan::class); 
     }
+
 }

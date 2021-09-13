@@ -28,7 +28,7 @@
                     <td>{{$g->villa->villa}}</td>
                     <td>{{$g->mulai}}</td>
                     <td>{{$g->selesai}}</td>
-                    <td>${{$g->total_harga}}</td>
+                    <td>Rp. <?php echo number_format($g->total_harga); ?></td>
                     <td class="text-center">
                       <button class="btn btn-info text-white">
                         <a href="detailpesanan/{{$g->id}}" class="text-white"><i class="far fa-eye"></i></a>

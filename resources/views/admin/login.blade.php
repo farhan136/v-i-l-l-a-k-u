@@ -15,7 +15,7 @@
                             <div class="text-center">
                                 <img src="{{asset('asset/logo1.png')}}" alt="logo-login" class="w-50 mb-4">
                             </div>
-                            @if (session('Message'))
+                            @if (session('Message')) 
                             <div class="alert alert-danger">
                                 {{ session('Message') }}
                             </div>
@@ -28,7 +28,7 @@
                                     @error('email') {{$message}} @enderror
                                 </div>
                                 <div class="form-group"><label for="password">Password</label>
-                                    <input type="password" name="password" class="form-control" id="password">
+                                     <input type="password" name="password" class="form-control" id="password">
                                     @error('password') {{$message}} @enderror
                                 </div>
                                 <div class="form-group form-check">
@@ -36,6 +36,7 @@
                                     <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                                 </div>
                                 <button type="submit" name="login" class="btn">Sign In</button>
+                                <a  class="btn" href="/daftaradmin">Register</a>
                             </form>
                         </div>
                     </div>

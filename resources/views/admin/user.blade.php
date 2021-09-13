@@ -19,6 +19,7 @@
               <th>Foto</th>
               <th>Pekerjaan</th>
               <th>Testimoni</th>
+              <th>Rating</th>
               <th></th>
             </tr> 
           </thead>
@@ -30,9 +31,18 @@
               <td>{{$user->email}}</td>
               <td><img src="/image/user/{{$user->foto}}" class="fotouser"></td>
               <td>{{$user->pekerjaan}}</td>
-              <td>@isset($user->testi->testimoni)
-                {{$user->testi->testimoni}}
-              @endisset</td>>
+              <td>
+                @isset($user->testi->testimoni)
+                  {{$user->testi->testimoni}}
+                @endisset
+              </td>>
+              <td>
+                  @isset($user->testi->bintang)
+                    @for ($i = 1; $i <= $user->testi->bintang; $i++)
+                      <span><i class="fas fa-star"></i></span>
+                    @endfor
+                  @endisset
+              </td>
               <td class="text-center">
                 <button class="btn btn-danger">
                   <a href="/hapusUser/{{$user->id}}" class="text-white"><i class="far fa-trash-alt"></i></a>

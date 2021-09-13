@@ -11,12 +11,13 @@ class PembayaransController extends Controller
     public function proses_upload(Request $request){
         if(isset($_POST['pembayaranVilla'])){    
         
-        $this->validate($request, [
-            'upload_bukti' => 'required',
-            'asal_bank' => 'required',
-            'no_pengirim'=> 'required',
-            'nama_pengirim'=> 'required'
-        ]); 
+        $validated = $request->validate([
+        'upload_bukti' => 'required',
+        'asal_bank' => 'required',
+        'nama_pengirim' => 'required',
+        'no_pengirim' => 'required',
+        'pemesanan_id' => 'required',
+      ]);
         
         // menyimpan data file yang diupload ke variabel $file
         $file = $request->file('upload_bukti'); 
@@ -49,5 +50,10 @@ class PembayaransController extends Controller
         // $pdf = PDF::loadHTML('<h1>Test</h1>');
         // $pdf = PDF::loadview('user.login');
         return $pdf->stream();
+    }
+
+    public function tes(){
+        $pesanan = Pemesanan::all();
+        return view('user.payment', ['pesanan'=>$pesanan->last()]);
     }
 }

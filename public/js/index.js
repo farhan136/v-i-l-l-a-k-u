@@ -55,11 +55,18 @@ $qty_minus.click(function(e){
 
 $(document).ready(function(){
     let harga = $('#harga').html();
-    // let malam = $('#malam').val();
-    $('#malam').click(function(){
-        $('#total_harga').text($('#malam_banget').val()* harga +'$');//this menggantikan #malam
+
+    $('#mulai, #selesai').change(function(){
+        let mulai = $('#mulai').val();
+        let waktuMulai = new Date(mulai).getTime() / (1000*60*60*24);
+        let selesai = $('#selesai').val();
+        let waktuSelesai = new Date(selesai).getTime() / (1000*60*60*24);
+        if ( mulai && selesai) {
+            let durasiNginep = waktuSelesai - waktuMulai;
+            $('#total_harga').text('Rp.' + durasiNginep* harga);    
+            $('#malam').val(durasiNginep);    
+        }
+
     });
-    $('#edit').click(function(){
-        console.log('halo');
-    });
+
 });

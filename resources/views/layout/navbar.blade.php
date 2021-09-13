@@ -8,10 +8,10 @@
           <a class="nav-link" href="{{url('/')}}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href="{{url('/tentang')}}">About</a>
         </li>
         <li class="nav-item">
-          @if(null!==session('nama')) 
+          @if(Auth::check()) 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#">{{session('nama')}}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -20,8 +20,6 @@
             </div>
           </li>
 
-          @else
-          <a class="nav-link" href="{{url('/loginuser')}}">Login</a>
           @endif
         </li>
         

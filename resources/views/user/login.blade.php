@@ -18,11 +18,17 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="username">Email</label>
-                                    <input type="username" name="email" class="form-control" id="username">
+                                    <input type="username" name="email" class="form-control @error('title') is-invalid @enderror" id="username">
+                                    @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" name="password" class="form-control" id="password">
+                                    <input type="password" name="password" class="form-control @error('title') is-invalid @enderror" id="password">
+                                    @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input">
@@ -33,6 +39,8 @@
                                 @endif
                                 <button type="submit" name="login" class="btn">Sign In</button>
                                 <a  name="daftar" class="btn" href="/daftaruser">Register</a>
+                                <br><br>
+                                <a  name="daftar" class="btn" href="/">Back</a>
                             </form>
                         </div>
                     </div>

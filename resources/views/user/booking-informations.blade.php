@@ -9,32 +9,39 @@
                 <h1>Informasi Penyewaan</h1>
                 <h4>Harap di cek kembali dengan benar!</h4>
             </div>
-        </div>
+        </div> 
  
         <div class="booking-information">
             <div class="row mt-4 mb-3">
-                <img src="/{{$pesanan->villa->foto_utama}}" alt="" class="img-cover">
+                <img src="/{{session('foto')}}" alt="" class="img-cover">
             </div>
             <div class="row justify-content-center ">
                 <div class="col-2 pl-5">
-                    <h5 class="text-dark"><span>{{$pesanan->villa->villa}}</span></h5>
-                    <p><span>{{$pesanan->villa->provinsi}}</span>, <span>Indonesia</span></p>
+                    <h5 class="text-dark"><span>{{session('nama_villa')}}</span></h5>
+                    <p><span>{{session('kategori')}}</span>, <span>Jawa Barat</span></p>
                 </div>
                 <div class="col-3 text-right pr-5 mt-n3">
-                    <p class="text-secondary"><p>Pembayaran senilai <span>{{$pesanan->total_harga}}$</span> belum termasuk PPN </p>
+                    <p class="text-secondary"><p>Pembayaran senilai <span>Rp. <?php echo number_format(session('total_harga')); ?></span> belum termasuk PPN </p>
                 </div>
             </div>
 
             <div class="row justify-content-center mt-4 mb-4">
                 <div class="col-5 text-right mr-5">
-                    <form action="/" method="POST">
+                    <form action="/properties/{{session('id')}}" method="POST">
+                        @csrf
                         <button type="submit" name="hapusPemesanan" class="btn tombol">Kembali</button>
                     </form>
                 </div>
                 <div class="col-5 text-left">
-                    <a href="/payment/{{$pesanan->id}}">
+                    <form action="/booking/{{session('id')}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="mulai" value="{{session('mulai')}}">
+                        <input type="hidden" name="selesai" value="{{session('selesai')}}">
+                        <input type="hidden" name="malam" value="{{session('malam')}}">
+                        <input type="hidden" name="total_harga" value="{{session('total_harga')}}">
+                        <input type="hidden" name="villa_id" value="{{session('id')}}">
                         <button type="submit" class="btn tombol">Lanjutkan</button>
-                    </a>
+                    </form>
                 </div>
             </div>
         </div>

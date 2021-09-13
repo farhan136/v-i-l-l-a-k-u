@@ -11,14 +11,12 @@
                     <div class="figure text-center">
                         <img src="/image/user/{{$testi->user->foto}}" class="img-cover">
                         <figcaption class="figure-caption">
-                            <div class="rating text-warning">
-                                <span><i class="fas fa-star"></i></span>
-                                <span><i class="fas fa-star"></i></span>
-                                <span><i class="fas fa-star"></i></span>
-                                <span><i class="fas fa-star"></i></span>
-                                <span><i class="far fa-star"></i></span>
-                            </div>
                             <h4>{{$testi->user->name}}</h4>
+                            <div class="rating text-warning">
+                                @for ($i = 1; $i <= $testi->bintang; $i++)
+                                <span><i class="fas fa-star"></i></span>
+                                @endfor
+                            </div>
                             <h5>{{$testi->user->pekerjaan}}</h5>
                             <p>{{$testi->testimoni}}</p>
                         </figcaption>

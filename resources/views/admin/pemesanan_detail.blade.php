@@ -79,11 +79,11 @@
                     </tr>
                     <tr>
                         <td>Sub Total</td>
-                        <td>: {{$pesanan->villa->harga}}$</td>
+                        <td>: Rp. <?php echo number_format($pesanan->total_harga); ?></td>
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td>: {{$pesanan->villa->id * 0.15 + $pesanan->villa->harga}}$</td>
+                        <td>: Rp. <?php echo number_format($pesanan->total_harga * 0.15 + $pesanan->total_harga); ?></td>
                     </tr>
                     </tbody>
                 </table>

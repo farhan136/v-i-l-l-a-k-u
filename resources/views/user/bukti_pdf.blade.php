@@ -14,6 +14,7 @@
     <div class="card-header d-sm-flex align-items-center justify-content-between">
         <h4 class="font-weight-bold mt-2">BUKTI TRANSAKSI</h4>
     </div>
+    
     <h5>Pemesanan</h5>
     <p>Mulai :{{$pesanan->mulai}}</p>
     <p>Selesai :{{$pesanan->selesai}}</p>
@@ -29,8 +30,8 @@
     <h5>Nama Villa :{{$pesanan->villa->villa}}</h5>
     <br>
     <h5>Tax         : 15%</h5>
-    <h5>Sub total   : {{$pesanan->villa->harga}}$</h5>
-    <h5>Total Harga : {{$pesanan->villa->id * 0.15 + $pesanan->villa->harga}}$</h5>
+    <h5>Sub total   : Rp. <?php echo number_format($pesanan->villa->harga); ?></h5>
+    <h5>Total Harga : Rp. <?php echo number_format($pesanan->villa->harga * 0.15 + $pesanan->villa->harga); ?></h5>
     <br>
     
     <div class="alert alert-success" role="alert">

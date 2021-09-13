@@ -9,27 +9,15 @@
                     <p class="text-white">Kami memberikan segala suatu yang mudah untuk mencari villa sesuai kriteriamu.</p>
                 </div>
                 <div class="col">
-                    <h5>Menu Lain</h5>
-                    <a href="">Akun Baru</a>
-                    <a href="">Booking Villa</a>
-                    <a href="">Use Payments</a>
-                </div>
-                <div class="col">
-                    <h5>Jelajah Kami</h5>
-                    <a href="">Tentang Kami</a>
-                    <a href="">Privasi</a>
-                    <a href="">Syarat & Ketentuan</a>
-                </div>
-                <div class="col">
                     <h5>Kontak Kami</h5>
-                    <a href="">support@villa.com</a>
-                    <a href="">021-2222-3333</a>
-                    <a href="">Villaku, Salemba, Jakarta</a>
+                    <a href="">Instagram : {{$profil->instagram}}</a>
+                    <a href="">Whats'app : {{$profil->wa}}</a>
+                    <a href="">Alamat : {{$profil->alamat}}</a>
                 </div>
             </div>
             <div class="copyright">
                 <div class="container text-center">
-                    <span>Copyright 2020 • All rights reserved • Villaku </span>
+                    <span>Copyright 2021 • All rights reserved • Villaku </span>
                 </div>
             </div>
         </div>

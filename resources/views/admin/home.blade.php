@@ -33,7 +33,7 @@
               </td>
               <td>{{$v->villa}}</td>
               <td>{{$v->alamat}}</td>
-              <td>${{$v->harga}}</td>
+              <td>Rp. <?php echo number_format($v->harga); ?></td>
               <td class="text-center">
                 <button class="btn btn-info text-white">
                   <a href="detail/{{$v->id}}" class="text-white"><i class="far fa-eye"></i></a>

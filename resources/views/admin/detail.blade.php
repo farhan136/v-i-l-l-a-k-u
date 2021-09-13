@@ -23,12 +23,8 @@
                             <td>: {{$detail->alamat}}</td>
                         </tr>
                         <tr>
-                            <td>Provinsi</td>
-                            <td>: {{$detail->provinsi}}</td>
-                        </tr>
-                        <tr>
-                            <td>Pulau</td>
-                            <td>: {{$detail->pulau}}</td>
+                            <td>Kategori</td>
+                            <td>: {{$detail->kategori}}</td>
                         </tr>
                         <tr>
                             <td>Nomor HP</td>
@@ -36,7 +32,7 @@
                         </tr>
                         <tr>
                             <td>Harga</td>
-                            <td>: {{$detail->harga}}</td>
+                            <td>: Rp. <?php echo number_format($detail->harga); ?></td>
                         </tr>
                         </tbody>
                     </table>
