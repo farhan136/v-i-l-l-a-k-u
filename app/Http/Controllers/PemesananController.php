@@ -18,13 +18,17 @@ class PemesananController extends Controller
         $pemesanan->selesai = $request->selesai;
         $pemesanan->malam = $request->malam;
         $pemesanan->total_harga = $request->total_harga;
- 
+
         $pemesanan->save();
         return redirect('/viewPayment');
     }
 
     public function sesi(Request $request, $id)
     {
+        $validated = $request->validate([
+            'mulai' => 'required',
+            'selesai' => 'required',
+        ]);
         $ori = new Carbon($request->mulai);
         $tar = new Carbon($request->selesai);
         $malam = $tar->diffInDays($ori); //menghitung selisih hari

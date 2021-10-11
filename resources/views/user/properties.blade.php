@@ -1,7 +1,15 @@
 @extends('layout.main')<!-- untuk mengambil template main -->
 @section('judul', 'Detail Villa') <!-- untuk section yang bernama title, ganti dengan villaku -->
 @section('isi')
-
+<?php 
+    if ($tanggalTerpesan) {
+        $tanggalTerpesan = $tanggalTerpesan;
+    }
+    else{
+        $tanggalTerpesan = [];
+    }
+    json_encode($tanggalTerpesan);
+?>
 <!-- Container -->
 <div class="container">
     <!-- Hedaer -->
@@ -54,7 +62,7 @@
                             </h3>
                         </div>
                         <form action="/sesi/{{$villa->id}}" method="POST">
-                            @method('get')
+                            
                             @csrf
                             <div class="date-title">
 
@@ -127,5 +135,8 @@
 @include('layout.footer')
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/index.js"></script> 
+<script src="js/index.js"></script>
+<script>
+    var app = <?php echo json_encode($tanggalTerpesan); ?>;
+</script> 
 @endsection

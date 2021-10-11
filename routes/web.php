@@ -5,10 +5,10 @@ Route::view('/loginuser', 'user.login')->name('login');
 Route::view('/daftaruser', 'user.register');
 
 Route::get('/', 'App\Http\Controllers\VillasController@index');
-Route::get('/properties/{id}', 'App\Http\Controllers\VillasController@show');
+Route::get('/properties/{id}', 'App\Http\Controllers\VillasController@show'); 
 Route::get('/tentang', 'App\Http\Controllers\AdminsController@about');
-Route::get('/sesi/{id}', 'App\Http\Controllers\PemesananController@sesi');
-Route::post('/booking/{id}', 'App\Http\Controllers\PemesananController@store');
+Route::post('/sesi/{id}', 'App\Http\Controllers\PemesananController@sesi');
+Route::post('/booking/{id}', 'App\Http\Controllers\PemesananController@store'); 
 
 Route::group(['middleware'=>'auth'], function(){//middleware untuk security
 	Route::get('/viewPayment', 'App\Http\Controllers\PembayaransController@tes');

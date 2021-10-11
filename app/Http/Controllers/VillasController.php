@@ -92,7 +92,7 @@ class VillasController extends Controller
     {
         $validated = $request->validate([
             'pendapat' => 'required',
-        ]);
+        ]); 
         $testi = new Testi;
         if(isset($_POST['tambahtesti'])){
             $testi->user_id = auth()->user()->id;
@@ -105,9 +105,29 @@ class VillasController extends Controller
 
     public function show($id)
     {
+        $pemesanan = Pemesanan::where('villa_id', $id)->get();
+        
+        if ($pemesanan->isNotEmpty()) {
+            $tesWaktu = Pemesanan::select('mulai', 'selesai')->where('villa_id', $id)->get();
+            
+            foreach ($tesWaktu as $tW) {
+                for ($i=strtotime($tW->mulai); $i <= strtotime($tW->selesai); $i = $i + (60*60*24)) { 
+                    $xyz = date("Y-m-d", $i);
+                    $zyx[] = $xyz;
+                }
+            }
+            $tanggalTerpesan = array_unique($zyx);
+            // dd($tanggalTerpesan);
+        }
+        // dd("kosong");
         $villa = DB::table('tbl_villa')->where('id', $id)->get();
-        $profil = Provil::first();
-        return view('user.properties', ['villa'=>$villa[0], 'profil'=>$profil]);
+        $profil = Provil::first(); 
+        return view('user.properties', 
+            [
+                'villa'=>$villa[0], 
+                'profil'=>$profil, 
+                'tanggalTerpesan'=>$pemesanan->isNotEmpty()? $tanggalTerpesan : null
+            ]);
     }
 
     public function detail($id)

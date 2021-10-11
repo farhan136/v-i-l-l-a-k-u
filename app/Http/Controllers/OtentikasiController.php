@@ -14,7 +14,7 @@ class OtentikasiController extends Controller
    return view('user.login');
  }
 
-public function login(Request $request){
+ public function login(Request $request){
   $attr = request()->validate([
     'email'=>'required',
     'password'=>'required',
@@ -41,7 +41,7 @@ public function daftar(Request $request){
  if ($request->password = $request->password2) {
   $foto = $request->file('foto');
 
-        //nama file di dalam folder ketika disimpan
+  //nama file di dalam folder ketika disimpan
   $nama_foto = $foto->getClientOriginalName();
 
   $tujuan_upload = 'image/user';
