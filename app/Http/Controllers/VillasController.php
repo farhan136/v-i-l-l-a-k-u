@@ -17,29 +17,22 @@ class VillasController extends Controller
 
     public function index()
     {
-        // $jumlah = json_decode($yes);
-        $laris = Pemesanan::select('villa_id')->groupBy('villa_id')->orderBy('villa_id', 'desc')->get();
-        // $yes = DB::table('tbl_pemesanan')->selectRaw("villa_id, count(villa_id) GROUP BY villa_id ORDER BY count DESC")->get();
+        // $laris = Pemesanan::select('villa_id')->groupBy('villa_id')->orderBy('villa_id', 'desc')->get();
         $yes = DB::table('tbl_pemesanan')->selectRaw("villa_id, count(villa_id) as jumlah")->groupBy('villa_id')->orderBy('jumlah', 'DESC')->pluck('villa_id');
-
-        // $tesWaktu = Pemesanan::select('mulai', 'selesai')->get();
-        
-        // foreach ($tesWaktu as $tW) {
-        //     for ($i=strtotime($tW->mulai); $i <= strtotime($tW->selesai); $i = $i + (60*60*24)) { 
-        //         $xyz = date("Y-m-d", $i);
-        //         $zyx[] = $xyz;
-        //     }
-        // }
-        // $zyx = array_unique($zyx);
-        // dd($zyx);
-        $x = 'villa_id';
+        for ($i=0; $i <= 3 ; $i++) { 
+            $y = $yes[$i];
+            $laris = Pemesanan::where('villa_id', $y)->get();
+        }
+        // dump($laris->unique('villa_id'));
+        die;
+        // dd($laris->unique('villa_id'));
         $profil = Provil::first();
         $bd = Villa::where('kategori', "Bukit Danau")->get();
         $ci = Villa::where('kategori', "Cipanas")->get();
         $co = Villa::where('kategori', "Coolibah")->get();
         $kb = Villa::where('kategori', "Kota Bunga")->get();
         $testi = Testi::all();
-        return view('user.index', ['bd' => $bd, 'ci' => $ci, 'co' => $co, 'kb' => $kb, 'laris'=>$laris->unique($x), 'testi'=>$testi, 'yes'=>$yes , 'profil'=>$profil]);
+        return view('user.index', ['bd' => $bd, 'ci' => $ci, 'co' => $co, 'kb' => $kb, 'testi'=>$testi, 'yes'=>$yes , 'profil'=>$profil,'yes'=>$yes]);
     }
 
     public function store(Request $request)
@@ -117,7 +110,7 @@ class VillasController extends Controller
                 }
             }
             $tanggalTerpesan = array_unique($zyx);
-            // dd($tanggalTerpesan);
+            dd($tanggalTerpesan);
         }
         // dd("kosong");
         $villa = DB::table('tbl_villa')->where('id', $id)->get();

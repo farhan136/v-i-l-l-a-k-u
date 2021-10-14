@@ -30,7 +30,7 @@ public function daftar(Request $request){
  $validated = $request->validate([
   'foto' => 'required|mimes:jpg,bmp,png',
   'nama' => 'required',
-  'email' => 'required',
+  'email' => 'required|email',
   'pekerjaan' => 'required',
   'password' => 'required',
   'password2' => 'required',

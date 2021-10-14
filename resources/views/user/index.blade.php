@@ -12,11 +12,7 @@
             <div class="owl-stage-outer">
                 <div class="owl-stage">
                     <?php 
-
-                    use Illuminate\Http\Request;
                     use App\Models\Pemesanan;
-                    $yes = DB::table('tbl_pemesanan')->selectRaw("villa_id, count(villa_id) as jumlah")->groupBy('villa_id')->orderBy('jumlah', 'DESC')->pluck('villa_id');
-                        // dd($tanggalTerpesan);
 
                     ?> 
                     @for($i = 0; $i <= 3; $i++)
