@@ -26,36 +26,36 @@ class AdminsController extends Controller
               return redirect('/admin');
           }
 
-          }
-        return redirect('/loginadmin')->with('Message', 'Email atau Password Salah');
-    }
+      }
+      return redirect('/loginadmin')->with('Message', 'Email atau Password Salah');
+  }
 
-    public function daftar(Request $request){ 
-        request()->validate([
-            'username'=>'required|unique:tbl_admin',
-            'nama'=>'required',
-            'password'=>'required',
-            'password2'=>'required',
-        ]); 
-        if($request->password=$request->password2){
-            $admin = new Admin;
+public function daftar(Request $request){ 
+    request()->validate([
+        'username'=>'required|unique:tbl_admin',
+        'nama'=>'required',
+        'password'=>'required',
+        'password2'=>'required',
+    ]); 
+    if($request->password=$request->password2){
+        $admin = new Admin;
 
-            $admin->username = $request->username;
-            $admin->nama = $request->nama;
-            $admin->password = $request->password;
-            $admin->save();
+        $admin->username = $request->username;
+        $admin->nama = $request->nama;
+        $admin->password = $request->password;
+        $admin->save();
 
-            return redirect('/loginadmin');
-        }
-
-        
-        return redirect('/daftaradmin')->with('Message', 'Password Tidak Cocok');
-    }
-
-    public function logout(Request $request){
-        $request->session()->flush();
         return redirect('/loginadmin');
     }
+
+
+    return redirect('/daftaradmin')->with('Message', 'Password Tidak Cocok');
+}
+
+public function logout(Request $request){
+    $request->session()->flush();
+    return redirect('/loginadmin');
+}
 
 
 public function index(){
