@@ -38,7 +38,7 @@ class PembayaransController extends Controller
           'status'=>'PENDING',
           'total_harga'=>$request->total_harga
       ]);
-      // dd($villa->harga);
+      
       // Konfigurasi midtrans
       \Midtrans\Config::$serverKey = 'SB-Mid-server-2dxzfgFWvrniqU1v_q4-tRu6';
       \Midtrans\Config::$isProduction = false;
@@ -68,9 +68,7 @@ class PembayaransController extends Controller
       
       //delete pemesanan
       $pemesanan->delete();
-      // dd($midtrans);
       //payment process
-      // dd($paymentUrl); 
       
       try {
       $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
@@ -92,18 +90,12 @@ class PembayaransController extends Controller
     {
       $pesanan = Pemesanan::all();
       $payment = Payment::all(); 
-        // dd($pesanan->last());
       $pdf = PDF::loadview('user.bukti_pdf',['pesanan'=>$pesanan->last(), 'payment'=>$payment->last()]);
-        // $pdf = PDF::loadHTML('<h1>Test</h1>');
-        // $pdf = PDF::loadview('user.login');
       return $pdf->stream();
     }
 
     public function tes(){
       $pesanan = Pemesanan::all();
-
-      // $user_id = Auth::user()->id;
-      // dd($user_id);
       return view('user.payment', ['pesanan'=>$pesanan->last()]);
     }
   }
