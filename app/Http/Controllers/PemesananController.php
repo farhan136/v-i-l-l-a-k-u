@@ -7,12 +7,14 @@ use App\Models\Pemesanan;
 use App\Models\Payment;
 use App\Models\Villa;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PemesananController extends Controller
 {
     public function store(Request $request)
     {
         $pemesanan = new Pemesanan;
+        $pemesanan->user_id=  Auth::user()->id;
         $pemesanan->villa_id = $request->villa_id;
         $pemesanan->mulai = $request->mulai;
         $pemesanan->selesai = $request->selesai;
@@ -35,7 +37,7 @@ class PemesananController extends Controller
         $total = $request->total_harga * $malam;
         $villa = Villa::find($id);
         session(['mulai' => $request->mulai, 'selesai' => $request->selesai, 'malam'=>$malam, 'total_harga'=>$total, 'id'=>$id, 'foto'=>$villa->foto_utama, 'nama_villa'=>$villa->villa, 'kategori'=>$villa->kategori]);
-        return view('user.booking-informations');
+        return redirect('user-booking');
     }
 
     public function detail($id)
