@@ -3,57 +3,107 @@ namespace App\Http\Controllers;
 
 use App\Models\Pemesanan;
 use App\Models\Payment;
+use App\Models\Villa;
 use Illuminate\Http\Request;
 use PDF;
+use Illuminate\Support\Facades\Auth;
+use Midtrans\Snap;
+use Midtrans\Config;
+use Exception;
 
 class PembayaransController extends Controller
 { 
-    public function proses_upload(Request $request){
-        if(isset($_POST['pembayaranVilla'])){    
-        
-        $validated = $request->validate([
-        'upload_bukti' => 'required',
-        'asal_bank' => 'required',
+  public function proses_upload(Request $request)
+  {
+      //validasi
+      $validated = $request->validate([
         'nama_pengirim' => 'required',
         'no_pengirim' => 'required',
-        'pemesanan_id' => 'required',
       ]);
-        
-        // menyimpan data file yang diupload ke variabel $file
-        $file = $request->file('upload_bukti'); 
 
+      //get data villa dan pemesanan
+      $pemesanan = Pemesanan::find($request->id_pemesanan);
+      $villa = Villa::find($pemesanan->villa_id);
 
-        // nama file
-        $nama = $file->getClientOriginalName();
+      //create payment
+      $payment = Payment::create([
+          'user_id' => Auth::user()->id,
+          'pemesanan_id'=> $pemesanan->id,
+          'nama_pengirim'=>$request->nama_pengirim,
+          'no_pengirim'=>$request->no_pengirim,
+          'mulai'=>$pemesanan->mulai,
+          'selesai'=>$pemesanan->selesai,
+          'malam'=>$pemesanan->malam,
+          'metode_bayar'=> 'MIDTRANS',
+          'status'=>'PENDING',
+          'total_harga'=>$request->total_harga
+      ]);
+      // dd($villa->harga);
+      // Konfigurasi midtrans
+      \Midtrans\Config::$serverKey = 'SB-Mid-server-2dxzfgFWvrniqU1v_q4-tRu6';
+      \Midtrans\Config::$isProduction = false;
+      \Midtrans\Config::$isSanitized = true;
+      \Midtrans\Config::$is3ds = true;
 
-        // isi dengan nama folder tempat kemana file diupload        
-        $file->move('image.bukti', $nama); //$nama adalah nama foto di folder penyimpanan
+      //setup variabel midtrans
+      $midtrans = [
+        "transaction_details"=> 
+        [
+          "order_id"=> "ORDER-". $request->id_pemesanan, 
+          "gross_amount"=> (int) $request->total
+        ],
+        // "item_details"=> 
+        // [
+        //   "id"=> $villa->id,
+        //   "price"=> $villa->harga,
+        //   "quantity"=> $pemesanan->malam,
+        //   "name"=> $villa->villa,
+        //   "brand"=> "Villaku",
+        //   "category"=> $villa->kategori,
+        //   "merchant_name"=> $villa->villa,
+        // ],
+        'enabled_payments'=>['gopay', 'bank_transfer'],
+        'vtweb'=>[]
+      ];
+      
+      //delete pemesanan
+      $pemesanan->delete();
+      // dd($midtrans);
+      //payment process
+      // dd($paymentUrl); 
+      
+      try {
+      $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
+      
+      // Get Snap Payment Page URL
+      $payment->url = $paymentUrl;
+      $payment->save();
+                
+      // Redirect ke halaman midtrans
+      return redirect($paymentUrl);
 
-        $payment = new Payment;
-        $payment->upload_bukti = $nama;
-        $payment->asal_bank = $request->asal_bank;
-        $payment->nama_pengirim = $request->nama_pengirim;
-        $payment->no_pengirim = $request->no_pengirim;
-        $payment->pemesanan_id = $request->pemesanan_id;
-        $payment->save();
+      }catch (Exception $e) {
+        echo $e->getMessage();
+      }
 
-        return view('user.sukses');
-        }
     }
 
     public function cetak_pdf() 
     {
-        $pesanan = Pemesanan::all();
-        $payment = Payment::all();
+      $pesanan = Pemesanan::all();
+      $payment = Payment::all(); 
         // dd($pesanan->last());
-        $pdf = PDF::loadview('user.bukti_pdf',['pesanan'=>$pesanan->last(), 'payment'=>$payment->last()]);
+      $pdf = PDF::loadview('user.bukti_pdf',['pesanan'=>$pesanan->last(), 'payment'=>$payment->last()]);
         // $pdf = PDF::loadHTML('<h1>Test</h1>');
         // $pdf = PDF::loadview('user.login');
-        return $pdf->stream();
+      return $pdf->stream();
     }
 
     public function tes(){
-        $pesanan = Pemesanan::all();
-        return view('user.payment', ['pesanan'=>$pesanan->last()]);
+      $pesanan = Pemesanan::all();
+
+      // $user_id = Auth::user()->id;
+      // dd($user_id);
+      return view('user.payment', ['pesanan'=>$pesanan->last()]);
     }
-}
+  }

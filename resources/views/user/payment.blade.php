@@ -14,62 +14,29 @@
         <form action="/bayar" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row justify-content-center mt-5">
-                <div class="col-5 border-right text-dark py-5">
-                    <h5>Transfer Pembayaran : <br> <br>
-                        Tax : 15% <br>
-                        Total : <span>Rp. <?php echo number_format($pesanan->total_harga*1.15); ?></span> <br>
-                    </h5>
-                    <div class="mt-4">
-                        <img src="/asset/elements/bca.png" alt="logo-bca" width="100px" class="float-left mr-5">
-                        <dl>
-                            <dd>Bank Central Asia</dd>
-                            <dd>52312412</dd>
-                            <dd>Farhan Anshari</dd>
-                        </dl>
-                    </div>
-                    <div class="mt-4"> 
-                        <img src="/asset/elements/mandiri.png" alt="logo-bca" width="123px" height="80px" class="float-left mr-4">
-                        <dl>
-                            <dd>Bank Mandiri</dd>
-                            <dd>67723727</dd>
-                            <dd>Farhan Anshari</dd>
-                        </dl>
-                    </div>
-                </div>
                 <div class="col-5 py-4">
-                    <div class="input-text pl-5">
-                        <input type="hidden" name="pemesanan_id" value="{{$pesanan->id}}">
-                        <label for="bukti-transfer">Upload Bukti Transfer</label>
-                        <div class="input-group mb-2">
-                            <input type="file" name="upload_bukti" class="form-control @error('upload_bukti') is-invalid @enderror">
-                            @error('upload_bukti')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <label for="asal-bank">Asal Bank</label>
-                        <div class="input-group mb-2">
-                            <select name="asal_bank">
-                                <option value="BCA" selected>BCA</option>
-                                <option value="BNI">BNI</option>
-                                <option value="Mandiri">Mandiri</option>
-                                <option value="Bank DKI">Bank DKI</option>
-                                <option value="BRI">BRI</option>
-                            </select>
-                        </div>
-                        <label>Nomor HP</label>
-                        <div class="input-group mb-2">
-                            <input type="text" name="no_pengirim" class="form-control @error('no_pengirim') is-invalid @enderror" placeholder="Plaase type here..">
-                            @error('no_pengirim')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <label for="nama-pengirim">Nama Pengirim</label>
-                        <div class="input-group">
-                            <input type="text" name="nama_pengirim" class="form-control @error('nama_pengirim') is-invalid @enderror" placeholder="Plaase type here..">
-                            @error('nama_pengirim')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+
+                    <h5>Transfer Pembayaran : <br></h5>
+
+                    <label>Total Harga</label>
+                    <div class="input-group mb-2">
+                        <input type="text" placeholder="Please type here.." value="Rp. {{number_format($pesanan->total_harga*1.15)}}" disabled>
+                    </div>
+                    <input type="hidden" name="id_pemesanan" value="{{$pesanan->id}}">
+                    <input type="hidden" name="total" value="{{$pesanan->total_harga*1.15}}">
+                    <label for="nama-pengirim">No Pengirim</label>
+                    <div class="input-group mb-2">
+                        <input type="text" name="no_pengirim" class="form-control @error('no_pengirim') is-invalid @enderror" placeholder="Please type here..">
+                        @error('no_pengirim')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <label for="nama-pengirim">Nama Pengirim</label>
+                    <div class="input-group">
+                        <input type="text" name="nama_pengirim" class="form-control @error('nama_pengirim') is-invalid @enderror" placeholder="Please type here..">
+                        @error('nama_pengirim')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
             </div>

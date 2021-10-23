@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use App\Models\Villa;
 use App\Models\Pemesanan;
+use App\Models\Pemesanan;
 use App\Models\User;
 use App\Models\Testi;
 use App\Models\Provil;
@@ -17,22 +18,17 @@ class VillasController extends Controller
 
     public function index()
     {
-        // $laris = Pemesanan::select('villa_id')->groupBy('villa_id')->orderBy('villa_id', 'desc')->get();
+
+        $laris = Pemesanan::select('villa_id')->groupBy('villa_id')->orderBy('villa_id', 'desc')->get();
         $yes = DB::table('tbl_pemesanan')->selectRaw("villa_id, count(villa_id) as jumlah")->groupBy('villa_id')->orderBy('jumlah', 'DESC')->pluck('villa_id');
-        for ($i=0; $i <= 3 ; $i++) { 
-            $y = $yes[$i];
-            $laris = Pemesanan::where('villa_id', $y)->get();
-        }
-        // dump($laris->unique('villa_id'));
-        die;
-        // dd($laris->unique('villa_id'));
+        
         $profil = Provil::first();
         $bd = Villa::where('kategori', "Bukit Danau")->get();
         $ci = Villa::where('kategori', "Cipanas")->get();
         $co = Villa::where('kategori', "Coolibah")->get();
         $kb = Villa::where('kategori', "Kota Bunga")->get();
         $testi = Testi::all();
-        return view('user.index', ['bd' => $bd, 'ci' => $ci, 'co' => $co, 'kb' => $kb, 'testi'=>$testi, 'yes'=>$yes , 'profil'=>$profil,'yes'=>$yes]);
+        return view('user.index', ['bd' => $bd, 'ci' => $ci, 'co' => $co, 'kb' => $kb,'testi'=>$testi, 'yes'=>$yes , 'profil'=>$profil]);
     }
 
     public function store(Request $request)
@@ -85,15 +81,24 @@ class VillasController extends Controller
     {
         $validated = $request->validate([
             'pendapat' => 'required',
-        ]); 
-        $testi = new Testi;
-        if(isset($_POST['tambahtesti'])){
+            'bintang' => 'required',
+        ]);
+        $testi = Testi::findOrFail(auth()->user()->id);
+        // dd($testi);
+        if ($testi) {
+            $testi->testimoni = $request->pendapat;
+            $testi->bintang = $request->bintang;
+
+        }else{
+            $testi = new Testi;    
             $testi->user_id = auth()->user()->id;
             $testi->testimoni = $request->pendapat;
             $testi->bintang = $request->bintang;
-            $testi->save();
+            
         }
+        $testi->save();
         return redirect('/');
+        
     }
 
     public function show($id)
