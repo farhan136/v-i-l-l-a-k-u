@@ -29,6 +29,7 @@ class PembayaransController extends Controller
       $payment = Payment::create([
           'user_id' => Auth::user()->id,
           'pemesanan_id'=> $pemesanan->id,
+          'villa_id'=>$villa->id,
           'nama_pengirim'=>$request->nama_pengirim,
           'no_pengirim'=>$request->no_pengirim,
           'mulai'=>$pemesanan->mulai,
