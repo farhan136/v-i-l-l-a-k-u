@@ -6,18 +6,23 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTblPembayaranTable extends Migration
 {
-
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create('tbl_pembayaran', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->integer('pemesanan_id');
-            $table->string('upload_bukti', 191);
-            $table->string('nama_pengirim', 191);
-            $table->string('asal_bank', 191);
+            $table->integer('user_id');
+            $table->string('nama_pengirim', 255);
             $table->string('no_pengirim', 12);
-            $table->timestamps()->default('current_timestamp()');
-            $table->foreign('pemesanan_id', 'tbl_pembayaran_ibfk_1')->references('id')->on('tbl_pemesanan')->onDelete('cascade')->onUpdate('cascade');
+            $table->date('mulai')->useCurrent();
+            $table->date('selesai')->useCurrent();
+            $table->integer('malam');
+            $table->timestamps();
         });
     }
 

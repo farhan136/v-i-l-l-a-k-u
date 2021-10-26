@@ -15,9 +15,9 @@ class CreateTblAdminTable extends Migration
     {
         Schema::create('tbl_admin', function (Blueprint $table) {
             $table->integer('id')->primary();
-            $table->string('nama', 191);
-            $table->string('username', 191);
-            $table->string('password', 191);
+            $table->string('nama', 255);
+            $table->string('username', 255);
+            $table->string('password', 255);
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTestiTable extends Migration
+class DropNomorHpFromVilla extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateTestiTable extends Migration
      */
     public function up()
     {
-        Schema::create('testi', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->integer('users_id');
-            $table->integer('bintang');
-            $table->longText('testimoni');
-            $table->timestamps();
+        Schema::table('tbl_villa', function (Blueprint $table) {
+            $table->dropColumn('nomor_hp');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateTestiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('testi');
+        Schema::table('tbl_villa', function (Blueprint $table) {
+            //
+        });
     }
 }
