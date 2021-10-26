@@ -17,26 +17,17 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('roles')->default('USER');
+            $table->mediumText('photo');
+            $table->string('pekerjaan');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->mediumText('photo');
-            $table->string('pekerjaan');
-
-            $table->dropColumn('testimoni');
-
-        });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::dropIfExists('users');

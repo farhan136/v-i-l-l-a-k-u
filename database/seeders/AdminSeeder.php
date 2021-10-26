@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AdminSeeder extends Seeder
 {
@@ -14,9 +15,10 @@ class AdminSeeder extends Seeder
     public function run()
     {
         DB::table('tbl_admin')->insert([
-            'name' => 'Farhan',
+            'id'=>1,
+            'nama' => 'Farhan Anshari',
             'username' => 'farhan136',
-            'password' => 'farhan136',
+            'password' => bcrypt('kepokepo'),
         ]);
     }
 }

@@ -16,11 +16,7 @@ class CreateTblPemesananTable extends Migration
         Schema::create('tbl_pemesanan', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->integer('villa_id');
-            $table->date('mulai')->default('current_timestamp()');
-            $table->date('selesai')->default('current_timestamp()');
-            $table->integer('malam');
-            $table->integer('total_harga');
-            $table->foreign('villa_id', 'tbl_pemesanan_ibfk_1')->references('id')->on('tbl_villa')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
