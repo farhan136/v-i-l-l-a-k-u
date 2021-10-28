@@ -20,7 +20,7 @@ class PembayaransController extends Controller
         'nama_pengirim' => 'required',
         'no_pengirim' => 'required',
       ]);
-
+      // dd($request->total);
       //get data villa dan pemesanan
       $pemesanan = Pemesanan::find($request->id_pemesanan);
       $villa = Villa::find($pemesanan->villa_id);
@@ -28,16 +28,16 @@ class PembayaransController extends Controller
       //create payment
       $payment = Payment::create([
           'user_id' => Auth::user()->id,
-          'pemesanan_id'=> $pemesanan->id,
           'villa_id'=>$villa->id,
           'nama_pengirim'=>$request->nama_pengirim,
           'no_pengirim'=>$request->no_pengirim,
           'mulai'=>$pemesanan->mulai,
           'selesai'=>$pemesanan->selesai,
           'malam'=>$pemesanan->malam,
+          'total_harga'=>$request->total,
           'metode_bayar'=> 'MIDTRANS',
           'status'=>'PENDING',
-          'total_harga'=>$request->total_harga
+          
       ]);
       
       // Konfigurasi midtrans
@@ -50,30 +50,34 @@ class PembayaransController extends Controller
       $midtrans = [
         "transaction_details"=> 
         [
-          "order_id"=> "ORDER-". $request->id_pemesanan, 
+          "order_id"=> "ORDER-". $payment->id, 
           "gross_amount"=> (int) $request->total
         ],
-        // "item_details"=> 
-        // [
-        //   "id"=> $villa->id,
-        //   "price"=> $villa->harga,
-        //   "quantity"=> $pemesanan->malam,
-        //   "name"=> $villa->villa,
-        //   "brand"=> "Villaku",
-        //   "category"=> $villa->kategori,
-        //   "merchant_name"=> $villa->villa,
-        // ],
+        "product_details"=> 
+        [
+          "id"=> $villa->id,
+          "price"=> $villa->harga,
+          "quantity"=> (int) $pemesanan->malam,
+          "name"=> $villa->villa,
+          "brand"=> "Villaku",
+          "category"=> $villa->kategori,
+          "merchant_name"=> $villa->villa,
+        ],
         'enabled_payments'=>['gopay', 'bank_transfer'],
         'vtweb'=>[]
       ];
       
       //delete pemesanan
-      $pemesanan->delete();
+      // $pemesanan->delete();
       //payment process
       
-      try {
-      $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
       
+      
+
+      try {
+
+      $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
+
       // Get Snap Payment Page URL
       $payment->url = $paymentUrl;
       $payment->save();

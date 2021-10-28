@@ -7,43 +7,7 @@
 <section class="main">
     <div class="card-body">
         
-        <h3>Paling Laris</h3>
-        <div class="row owl-carousel owl-theme owl-loaded">
-            <div class="owl-stage-outer">
-                <div class="owl-stage">
-                    <?php 
-                    use App\Models\Pemesanan;
-                    ?> 
-                    @for($i = 0; $i <= 3; $i++)
-                    <?php  
-                    $y = $yes[$i];
-                    $laris = Pemesanan::where('villa_id', $y)->get();
-                    ?>
-                    @foreach($laris->unique('villa_id') as $laris)
-                    <figure class="owl-item figure">
-                        <div class="figure-img text-up">
-                            <img src="{{ $laris->villa->foto_utama }}" class="img-fluid img-cover">
-                            <a href="/properties/{{$laris->villa->id}}" class="d-flex justify-content-center mb-n2">
-                                <img src="asset/elements/visibility.png" class="align-self-center">
-                            </a>
-                            <h5>{{$laris->villa->villa}}</h5>
-                            <h6 class="pl-2">
-                                <span>{{$laris->villa->kategori}}</span>,
-                                <span>Jawa Barat</span>
-                            </h6>
-                        </div>
-                        <div class="tag">
-                            <span>Rp. <?php echo number_format($laris->villa->harga); ?></span>
-                            <span>per malam</span>
-                        </div>
-                    </figure>
-                    @endforeach
-                    @endfor
-                </div>
-            </div>
-            
-        </div>
-
+        
         <!-- Bukit Danau -->
         
         <h3>Bukit Danau</h3>

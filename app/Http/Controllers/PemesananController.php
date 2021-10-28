@@ -13,15 +13,14 @@ class PemesananController extends Controller
 {
     public function store(Request $request)
     {
-        $pemesanan = new Pemesanan;
-        $pemesanan->user_id=  Auth::user()->id;
-        $pemesanan->villa_id = $request->villa_id;
-        $pemesanan->mulai = $request->mulai;
-        $pemesanan->selesai = $request->selesai;
-        $pemesanan->malam = $request->malam;
-        $pemesanan->total_harga = $request->total_harga;
-
-        $pemesanan->save();
+        Pemesanan::create([
+            'user_id'=>Auth::user()->id,
+            'villa_id'=>$request->villa_id,
+            'mulai'=>$request->mulai,
+            'selesai'=>$request->selesai,
+            'malam'=>$request->malam,
+            'total_harga'=>$request->total_harga,
+        ]);
         return redirect('/viewPayment');
     }
 

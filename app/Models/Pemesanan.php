@@ -9,7 +9,7 @@ class Pemesanan extends Model
 {
     use HasFactory;
     protected $table = 'tbl_pemesanan';
-    protected $fillable=['villa_id','user_id'];
+    protected $fillable=['villa_id','user_id','mulai','selesai','malam','total_harga'];
     
     
     public function villa()

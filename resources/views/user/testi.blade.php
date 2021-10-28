@@ -9,7 +9,7 @@
                 @foreach($testi as $testi)
                 <div class="col-8 col-lg-4 pb-5">
                     <div class="figure text-center">
-                        <img src="/image/user/{{$testi->user->foto}}" class="img-cover">
+                        <img src="/image/user/{{$testi->user->photo}}" class="img-cover">
                         <figcaption class="figure-caption">
                             <h4>{{$testi->user->name}}</h4>
                             <div class="rating text-warning">
