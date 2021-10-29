@@ -51,7 +51,7 @@ if ($request->password = $request->password2) {
     $tujuan_upload = 'image/user';
     $foto->move($tujuan_upload,$nama_foto);
 
-    $user->role = "admin"
+    $user->role = "admin";
     $user->email = $request->email;
     $user->name = $request->nama;
     $user->foto = $nama_foto;
