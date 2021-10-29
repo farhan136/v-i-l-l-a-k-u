@@ -35,7 +35,7 @@ class PemesananController extends Controller
         $total = $request->total_harga * $malam;
         $villa = Villa::find($id);
         session(['mulai' => $request->mulai, 'selesai' => $request->selesai, 'malam'=>$malam, 'total_harga'=>$total, 'id'=>$id, 'foto'=>$villa->foto_utama, 'nama_villa'=>$villa->villa, 'kategori'=>$villa->kategori]);
-        return view('user.booking-informations');
+        return redirect('user-booking');
     }
 
     public function detail($id)

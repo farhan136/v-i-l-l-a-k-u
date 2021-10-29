@@ -31,23 +31,39 @@ class AdminsController extends Controller
   }
 
 public function daftar(Request $request){ 
-    request()->validate([
-        'username'=>'required|unique:tbl_admin',
-        'nama'=>'required',
-        'password'=>'required',
-        'password2'=>'required',
-    ]); 
-    if($request->password=$request->password2){
-        $admin = new Admin;
+    $validated = $request->validate([
+      'foto' => 'required|mimes:jpg,bmp,png',
+      'nama' => 'required',
+      'email' => 'required',
+      'pekerjaan' => 'required',
+      'password' => 'required',
+      'password2' => 'required',
+    ]);
 
-        $admin->username = $request->username;
-        $admin->nama = $request->nama;
-        $admin->password = $request->password;
-        $admin->save();
+    $user = new User;
 
-        return redirect('/loginadmin');
-    }
+if ($request->password = $request->password2) {
+    $foto = $request->file('foto');
 
+    //nama file di dalam folder ketika disimpan
+    $nama_foto = $foto->getClientOriginalName();
+
+    $tujuan_upload = 'image/user';
+    $foto->move($tujuan_upload,$nama_foto);
+
+    $user->role = "admin"
+    $user->email = $request->email;
+    $user->name = $request->nama;
+    $user->foto = $nama_foto;
+    $user->pekerjaan = $request->pekerjaan;
+    $user->password = bcrypt($request->password); 
+    $user->save();
+
+    return view('admin.login');   
+}
+else{
+    echo "password tidak sesuai";
+}
 
     return redirect('/daftaradmin')->with('Message', 'Password Tidak Cocok');
 }

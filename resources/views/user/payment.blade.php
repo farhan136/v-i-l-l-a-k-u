@@ -39,6 +39,7 @@
                 <div class="col-5 py-4">
                     <div class="input-text pl-5">
                         <input type="hidden" name="pemesanan_id" value="{{$pesanan->id}}">
+                        <input type="hidden" name="total" value="{{$pesanan->total_harga*1.15}}">
                         <label for="bukti-transfer">Upload Bukti Transfer</label>
                         <div class="input-group mb-2">
                             <input type="file" name="upload_bukti" class="form-control @error('upload_bukti') is-invalid @enderror">
@@ -58,17 +59,14 @@
                         </div>
                         <label>Nomor HP</label>
                         <div class="input-group mb-2">
-                            <input type="text" name="no_pengirim" class="form-control @error('no_pengirim') is-invalid @enderror" placeholder="Plaase type here..">
+                            <input type="text" name="no_pengirim" class="form-control @error('no_pengirim') is-invalid @enderror" placeholder="Please type here..">
                             @error('no_pengirim')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <label for="nama-pengirim">Nama Pengirim</label>
                         <div class="input-group">
-                            <input type="text" name="nama_pengirim" class="form-control @error('nama_pengirim') is-invalid @enderror" placeholder="Plaase type here..">
-                            @error('nama_pengirim')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <input type="text" name="nama_pengirim" class="form-control" placeholder="Please type here.." value="{{Auth::user()->name}}" readonly>
                         </div>
                     </div>
                 </div>

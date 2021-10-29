@@ -8,9 +8,10 @@ Route::get('/', 'App\Http\Controllers\VillasController@index');
 Route::get('/properties/{id}', 'App\Http\Controllers\VillasController@show'); 
 Route::get('/tentang', 'App\Http\Controllers\AdminsController@about');
 Route::post('/sesi/{id}', 'App\Http\Controllers\PemesananController@sesi');
-Route::post('/booking/{id}', 'App\Http\Controllers\PemesananController@store'); 
 
 Route::group(['middleware'=>'auth'], function(){//middleware untuk security
+	Route::view('/user-booking',  'user.booking-informations');
+	Route::post('/booking/{id}', 'App\Http\Controllers\PemesananController@store'); 
 	Route::get('/viewPayment', 'App\Http\Controllers\PembayaransController@tes');
 	Route::post('/bayar', 'App\Http\Controllers\PembayaransController@proses_upload');
 	Route::get('/bukti_pdf', 'App\Http\Controllers\PembayaransController@cetak_pdf');
@@ -18,13 +19,12 @@ Route::group(['middleware'=>'auth'], function(){//middleware untuk security
 	Route::post('tambahtesti', 'App\Http\Controllers\VillasController@testi');
 });
 
-Route::get('/loginadmin', function (){return view('admin.login');});
+Route::view('/loginadmin', 'admin.login');
 Route::post('/code', 'App\Http\Controllers\AdminsController@login');
 Route::view('/daftaradmin', 'admin.daftar');
 Route::post('/daftaradmin', 'App\Http\Controllers\AdminsController@daftar');
 
 Route::group(['middleware'=>'CekLoginAdmin'], function(){ 
-// Route::group(['middleware'=>'auth'], function(){//middleware untuk security
 	Route::get('/admin', 'App\Http\Controllers\AdminsController@index'); 
 	Route::get('editvilla/{id}', 'App\Http\Controllers\AdminsController@editvilla');
 	Route::post('editvilla/update/{id}', 'App\Http\Controllers\AdminsController@updatevilla');

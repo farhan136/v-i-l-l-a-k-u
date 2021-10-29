@@ -9,10 +9,6 @@ class Payment extends Model
 {
     use HasFactory;
     protected $table = 'tbl_pembayaran';
-    protected $fillable=['pemesanan_id','upload_bukti','nama_pengirim','asal_bank','no_pengirim'];
+    protected $fillable=['upload_bukti','nama_pengirim','asal_bank','no_pengirim', 'user_id', 'villa_id', 'payment_status', 'mulai', 'selesai', 'malam', 'total_harga'];
     
-    public function pemesanan()
-	{
-	    return $this->belongsTo(Pemesanan::class, 'pemesanan_id');
-	}
 }
