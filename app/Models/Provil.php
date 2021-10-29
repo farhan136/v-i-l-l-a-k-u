@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Provil extends Model
 {
     use HasFactory;
+    protected $fillable=['tentang','instagram','alamat','wa'];
+    
 }

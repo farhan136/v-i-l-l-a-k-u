@@ -3,9 +3,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Pemesanan;
 use App\Models\Payment;
+use App\Models\Villa;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\Auth;
+
 
 class PembayaransController extends Controller
 { 
@@ -26,9 +28,6 @@ class PembayaransController extends Controller
         // nama file
         $nama = $file->getClientOriginalName();
 
-        // isi dengan nama folder tempat kemana file diupload        
-        $file->move('image.bukti', $nama); //$nama adalah nama foto di folder penyimpanan
-
         Payment::create([
             'user_id' => Auth::user()->id,
             'villa_id' => $pesanan->villa_id,
@@ -47,6 +46,7 @@ class PembayaransController extends Controller
         $pesanan->delete();
 
         return view('user.sukses');
+
     }
 
     public function cetak_pdf() 
@@ -55,10 +55,11 @@ class PembayaransController extends Controller
         $payment = Payment::all();
         $pdf = PDF::loadview('user.bukti_pdf',['pesanan'=>$pesanan->last(), 'payment'=>$payment->last()]);
         return $pdf->stream();
+
     }
 
     public function tes(){
-        $pesanan = Pemesanan::all();
-        return view('user.payment', ['pesanan'=>$pesanan->last()]);
+      $pesanan = Pemesanan::all();
+      return view('user.payment', ['pesanan'=>$pesanan->last()]);
     }
-}
+  }

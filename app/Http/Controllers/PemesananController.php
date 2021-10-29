@@ -7,12 +7,14 @@ use App\Models\Pemesanan;
 use App\Models\Payment;
 use App\Models\Villa;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PemesananController extends Controller
 {
     public function store(Request $request)
     {
         $pemesanan = new Pemesanan;
+        $pemesanan->user_id=  Auth::user()->id;
         $pemesanan->villa_id = $request->villa_id;
         $pemesanan->mulai = $request->mulai;
         $pemesanan->selesai = $request->selesai;

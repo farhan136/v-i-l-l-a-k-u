@@ -114,7 +114,6 @@ class VillasController extends Controller
                 }
             }
             $tanggalTerpesan = array_unique($zyx);
-            // dd($tanggalTerpesan);
         }
         // dd("kosong");
         $villa = DB::table('tbl_villa')->where('id', $id)->get();

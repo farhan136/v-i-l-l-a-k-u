@@ -9,6 +9,8 @@ class Testi extends Model
 {
     use HasFactory;
     protected $table = 'testi';
+    protected $fillable=['user_id','testimoni','bintang'];
+    
 
     public function user()
     {

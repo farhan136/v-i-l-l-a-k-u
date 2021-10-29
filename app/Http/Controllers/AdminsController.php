@@ -80,18 +80,18 @@ public function index(){
 }
 
 public function editvilla($id){
-        $cocok = Villa::find($id);//ambil data villa berdasarkan id nya
+        $cocok = Villa::find($id);
         return view('admin.home_edit', ['cocok'=>$cocok]);
     }
 
     public function hapusvilla($id){
-        $cocok = Villa::find($id);//ambil data villa berdasarkan id nya
+        $cocok = Villa::find($id);
         $cocok->delete();
         return view('admin.home');
     }
 
     public function hapuspesanan($id){
-        $cocok = Pemesanan::find($id);//ambil data pemesanan berdasarkan id nya
+        $cocok = Pemesanan::find($id);
         $cocok->delete();
         return view('admin.pemesanan');
     }
