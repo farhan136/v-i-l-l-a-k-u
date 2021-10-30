@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use App\Models\Villa;
-use App\Models\Pemesanan;
+use App\Models\Payment;
 use App\Models\User;
 use App\Models\Testi;
 use App\Models\Provil;
@@ -18,8 +18,8 @@ class VillasController extends Controller
     public function index()
     {
 
-        $laris = Pemesanan::select('villa_id')->groupBy('villa_id')->orderBy('villa_id', 'desc')->get();
-        $yes = DB::table('tbl_pemesanan')->selectRaw("villa_id, count(villa_id) as jumlah")->groupBy('villa_id')->orderBy('jumlah', 'DESC')->pluck('villa_id');
+        $laris = Payment::select('villa_id')->groupBy('villa_id')->orderBy('villa_id', 'desc')->get();
+        $yes = DB::table('tbl_pembayaran')->selectRaw("villa_id, count(villa_id) as jumlah")->groupBy('villa_id')->orderBy('jumlah', 'DESC')->pluck('villa_id');
         
         $profil = Provil::first();
         $bd = Villa::where('kategori', "Bukit Danau")->get();
@@ -83,7 +83,7 @@ class VillasController extends Controller
             'bintang' => 'required',
         ]);
         $testi = Testi::findOrFail(auth()->user()->id);
-        // dd($testi);
+        
         if ($testi) {
             $testi->testimoni = $request->pendapat;
             $testi->bintang = $request->bintang;
@@ -102,10 +102,10 @@ class VillasController extends Controller
 
     public function show($id)
     {
-        $pemesanan = Pemesanan::where('villa_id', $id)->get();
+        $terpesan = Payment::where('villa_id', $id)->get();
         
-        if ($pemesanan->isNotEmpty()) {
-            $tesWaktu = Pemesanan::select('mulai', 'selesai')->where('villa_id', $id)->get();
+        if ($terpesan->isNotEmpty()) {
+            $tesWaktu = Payment::select('mulai', 'selesai')->where('villa_id', $id)->get();
             
             foreach ($tesWaktu as $tW) {
                 for ($i=strtotime($tW->mulai); $i <= strtotime($tW->selesai); $i = $i + (60*60*24)) { 
@@ -122,7 +122,7 @@ class VillasController extends Controller
             [
                 'villa'=>$villa[0], 
                 'profil'=>$profil, 
-                'tanggalTerpesan'=>$pemesanan->isNotEmpty()? $tanggalTerpesan : null
+                'tanggalTerpesan'=>$terpesan->isNotEmpty()? $tanggalTerpesan : null
             ]);
     }
 

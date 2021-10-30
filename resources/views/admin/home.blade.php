@@ -1,12 +1,11 @@
 @extends('admin.index')<!-- untuk mengambil template main -->
-@section('judul', 'Dashboard Admin')
+@section('judul', 'Villa Admin')
 @section('isi')
 <!-- Begin Page Content -->
 <div class="container-fluid">
-  <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header d-sm-flex align-items-center justify-content-between">
-      <h4 class="font-weight-bold mt-2">Dashboard</h4>
+      <h4 class="font-weight-bold mt-2">Villa</h4>
       <button class="btn add shadow-sm" data-toggle="modal" data-target="#dashboardModalTambah">
         <i class="fas fa-plus"></i>
       </button>
@@ -29,7 +28,7 @@
             <tr>
               <td>{{$loop->iteration}}</td>
               <td>
-                <img src="{{$v->foto_utama}}" class="img-cover" alt="" height="100px">
+                <img src="{{$v->foto_utama}}" class="img-cover img-fluid" alt="" height="100px">
               </td>
               <td>{{$v->villa}}</td>
               <td>{{$v->alamat}}</td>

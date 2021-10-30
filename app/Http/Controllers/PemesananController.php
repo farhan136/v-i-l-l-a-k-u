@@ -14,7 +14,6 @@ class PemesananController extends Controller
     public function store(Request $request)
     {
         $pemesanan = new Pemesanan;
-        $pemesanan->user_id=  Auth::user()->id;
         $pemesanan->villa_id = $request->villa_id;
         $pemesanan->mulai = $request->mulai;
         $pemesanan->selesai = $request->selesai;

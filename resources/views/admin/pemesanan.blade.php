@@ -1,12 +1,12 @@
 @extends('admin.index')<!-- untuk mengambil template main -->
-@section('judul', 'Pemesanan')
+@section('judul', 'Transaksi')
 @section('isi')
       <!-- Begin Page Content -->
       <div class="container-fluid">
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header d-sm-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold mt-2">Tabel Pesanan</h4>
+            <h4 class="font-weight-bold mt-2">Tabel Transaksi</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -22,22 +22,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($global[0] as $g)
+                  @foreach($transaksi as $tr)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$g->villa->villa}}</td>
-                    <td>{{$g->mulai}}</td>
-                    <td>{{$g->selesai}}</td>
-                    <td>Rp. <?php echo number_format($g->total_harga); ?></td>
+                    <td>{{$tr->villa->villa}}</td>
+                    <td>{{$tr->mulai}}</td>
+                    <td>{{$tr->selesai}}</td>
+                    <td>Rp. <?php echo number_format($tr->total_harga); ?></td>
                     <td class="text-center">
                       <button class="btn btn-info text-white">
-                        <a href="detailpesanan/{{$g->id}}" class="text-white"><i class="far fa-eye"></i></a>
+                        <a href="detailpesanan/{{$tr->id}}" class="text-white"><i class="far fa-eye"></i></a>
                       </button>
                       <button class="btn btn-warning">
-                        <a href="edit/{{$g->id}}" class="text-white"><i class="fas fa-edit"></i></a>
+                        <a href="edit/{{$tr->id}}" class="text-white"><i class="fas fa-edit"></i></a>
                       </button>
                       <button class="btn btn-danger">
-                        <a href="/hapuspesanan/{{$g->id}}" class="text-white"><i class="far fa-trash-alt"></i></a>
+                        <a href="/hapuspesanan/{{$tr->id}}" class="text-white"><i class="far fa-trash-alt"></i></a>
                       </button>
                     </td>
                   </tr>

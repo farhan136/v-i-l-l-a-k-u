@@ -10,76 +10,64 @@ use App\Models\User;
 use App\Models\Villa;
 use App\Models\Provil;
 use App\Models\Pemesanan;
+use App\Models\Payment;
 
 class AdminsController extends Controller
 {
+    public function daftar(Request $request){ 
+        $validated = $request->validate([
+          'foto' => 'required|mimes:jpg,bmp,png',
+          'nama' => 'required',
+          'email' => 'required',
+          'pekerjaan' => 'required',
+          'password' => 'required',
+          'password2' => 'required',
+      ]);
 
-    public function login(Request $request){ 
-        request()->validate([
-            'username'=>'required',
-            'password'=>'required',
-        ]); 
-        $cocok = Admin::where('username', $request->username)->firstOrFail(); //menampilkan data admin yang emailnya sama dengan email yang dimasukkan pengguna
-        if($cocok){
-            if($request->password=$cocok->password){ //mengecek apakah parameter pertama jika di hash sama dengan parameter kedua
-              session(['login_admin' => 'true', 'nama_admin' => $cocok->nama]);
-              return redirect('/admin');
-          }
+        $user = new User;
 
-      }
-      return redirect('/loginadmin')->with('Message', 'Email atau Password Salah');
-  }
+        if ($request->password = $request->password2) {
+            $foto = $request->file('foto');
 
-public function daftar(Request $request){ 
-    $validated = $request->validate([
-      'foto' => 'required|mimes:jpg,bmp,png',
-      'nama' => 'required',
-      'email' => 'required',
-      'pekerjaan' => 'required',
-      'password' => 'required',
-      'password2' => 'required',
-    ]);
+            //nama file di dalam folder ketika disimpan
+            $nama_foto = $foto->getClientOriginalName();
 
-    $user = new User;
+            $tujuan_upload = 'image/user';
+            $foto->move($tujuan_upload,$nama_foto);
 
-if ($request->password = $request->password2) {
-    $foto = $request->file('foto');
+            $user->role = "admin";
+            $user->email = $request->email;
+            $user->name = $request->nama;
+            $user->foto = $nama_foto;
+            $user->pekerjaan = $request->pekerjaan;
+            $user->password = bcrypt($request->password); 
+            $user->save();
 
-    //nama file di dalam folder ketika disimpan
-    $nama_foto = $foto->getClientOriginalName();
+            return view('admin.login');   
+        }
+        else{
+            echo "password tidak sesuai";
+        }
 
-    $tujuan_upload = 'image/user';
-    $foto->move($tujuan_upload,$nama_foto);
+        return redirect('/daftaradmin')->with('Message', 'Password Tidak Cocok');
+    }
 
-    $user->role = "admin";
-    $user->email = $request->email;
-    $user->name = $request->nama;
-    $user->foto = $nama_foto;
-    $user->pekerjaan = $request->pekerjaan;
-    $user->password = bcrypt($request->password); 
-    $user->save();
+    public function index()
+    {    
+        return view('admin.dashboard');
+    }
 
-    return view('admin.login');   
-}
-else{
-    echo "password tidak sesuai";
-}
+    public function villa(){
+        $villas = Villa::all();
+        return view('admin.home', ['villa'=>$villas]);
+    }
 
-    return redirect('/daftaradmin')->with('Message', 'Password Tidak Cocok');
-}
+    public function transaksi(){
+        $transaksi = Payment::all();
+        return view('admin.pemesanan', ['transaksi'=>$transaksi]);
+    }
 
-public function logout(Request $request){
-    $request->session()->flush();
-    return redirect('/loginadmin');
-}
-
-
-public function index(){
-    $villas = Villa::all();
-    return view('admin.home', ['villa'=>$villas]);
-}
-
-public function editvilla($id){
+    public function editvilla($id){
         $cocok = Villa::find($id);
         return view('admin.home_edit', ['cocok'=>$cocok]);
     }
@@ -130,7 +118,7 @@ public function editvilla($id){
 
         $cocok->save();
 
-        return redirect('/admin');
+        return redirect('/admin/villa');
 
     }
 

@@ -1,9 +1,7 @@
-@extends('layout.main')
-@section('judul','Login Admin')
+@extends('layout.main')<!-- untuk mengambil template main -->
+@section('judul', 'Login Admin')
 @section('isi')
-<?php session_start();?>
-
-	<main class="login-container">
+    <main class="login-container">
         <div class="container">
             <div class="row page-login align-items-center">
                 <div class="section-left col-md-6">
@@ -13,30 +11,32 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="text-center">
-                                <img src="{{asset('asset/logo1.png')}}" alt="logo-login" class="w-50 mb-4">
+                                Login Admin
                             </div>
-                            @if (session('Message')) 
-                            <div class="alert alert-danger">
-                                {{ session('Message') }}
-                            </div>
-                            @endif
-                            <form action="{{url('/code')}}" method="POST">
+                            
+                            <form action="{{url('login')}}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="username" name="username" class="form-control" id="username">
-                                    @error('email') {{$message}} @enderror
+                                    <label for="username">Email</label>
+                                    <input type="username" name="email" class="form-control @error('title') is-invalid @enderror" id="username">
+                                    @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <div class="form-group"><label for="password">Password</label>
-                                     <input type="password" name="password" class="form-control" id="password">
-                                    @error('password') {{$message}} @enderror
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" class="form-control @error('title') is-invalid @enderror" id="password">
+                                    @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label class="form-check-label" for="exampleCheck1">Remember Me</label>
-                                </div>
+                                @if(session('Message'))
+                                    {{session('Message')}}
+                                @endif
                                 <button type="submit" name="login" class="btn">Sign In</button>
-                                <a  class="btn" href="/daftaradmin">Register</a>
+                                <a  name="daftar" class="btn" href="/daftaruser">Register</a>
+                                <br><br>
+                                <a  name="daftar" class="btn" href="/">Back</a>
                             </form>
                         </div>
                     </div>
@@ -45,4 +45,4 @@
         </div>
     </main>
 
-@endsection
+@endsection 

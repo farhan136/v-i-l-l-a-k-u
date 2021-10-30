@@ -24,12 +24,8 @@
                     </div>
                     <input type="hidden" name="id_pemesanan" value="{{$pesanan->id}}">
                     <input type="hidden" name="total" value="{{$pesanan->total_harga*1.15}}">
-                    <label for="nama-pengirim">No Pengirim</label>
-                    <div class="input-group mb-2">
-                        <input type="text" name="no_pengirim" class="form-control @error('no_pengirim') is-invalid @enderror" placeholder="Please type here..">
-                        @error('no_pengirim')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                    <div class="section-left col-md-6">
+                        <img src="{{asset('asset/elements/iconvilla-02.png')}}" alt="cover-login" width="200px">
                     </div>
                 </div>
                 <div class="col-5 py-4">

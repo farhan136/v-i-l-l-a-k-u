@@ -21,7 +21,7 @@
                     <p><span>{{session('kategori')}}</span>, <span>Jawa Barat</span></p>
                 </div>
                 <div class="col-3 text-right pr-5 mt-n3">
-                    <p class="text-secondary"><p>Pembayaran senilai <span>Rp. <?php echo number_format(session('total_harga')); ?></span> belum termasuk PPN </p>
+                    <p class="text-secondary"><p>Pembayaran senilai <span>Rp. <?php echo number_format(session('total_harga')); ?></span> belum termasuk PPN 15%</p>
                 </div>
             </div>
 

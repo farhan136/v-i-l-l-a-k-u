@@ -12,12 +12,12 @@
             <div class="owl-stage-outer">
                 <div class="owl-stage">
                     <?php 
-                    use App\Models\Pemesanan;
+                        use App\Models\Payment;
                     ?> 
                     @for($i = 0; $i <= 3; $i++)
                     <?php  
                     $y = $yes[$i];
-                    $laris = Pemesanan::where('villa_id', $y)->get();
+                    $laris = Payment::where('villa_id', $y)->get();
                     ?>
                     @foreach($laris->unique('villa_id') as $laris)
                     <figure class="owl-item figure">

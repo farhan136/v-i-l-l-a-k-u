@@ -51,7 +51,15 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <!-- Nav Item - Pendaftaran -->
+        <!-- Nav Item-->
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/villa">
+            <i class="fas fa-user-plus"></i>
+            <span>Villa</span>
+          </a>
+        </li>
+
+        <!-- Nav Item-->
         <li class="nav-item">
           <a class="nav-link" href="/admin/profil">
             <i class="fas fa-user-plus"></i>
@@ -59,7 +67,7 @@
           </a>
         </li>
 
-        <!-- Nav Item - Pendaftaran -->
+        <!-- Nav Item-->
         <li class="nav-item">
           <a class="nav-link" href="/admin/users">
             <i class="fas fa-user-plus"></i>
@@ -67,17 +75,16 @@
           </a>
         </li>
 
-        <!-- Nav Item - Pemesanan -->
+        <!-- Nav Item-->
         <li class="nav-item">
           <a class="nav-link" href="/admin/pemesanan">
             <i class="fas fa-shopping-cart"></i>
-            <span>Pemesanan</span></a>
+            <span>Transaksi</span></a>
           </li>
 
           <!-- Divider -->
           <hr class="sidebar-divider d-none d-md-block">
 
-          <!-- Sidebar Toggler (Sidebar) -->
         </ul>
         <!-- End of Sidebar -->
 
