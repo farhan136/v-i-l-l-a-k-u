@@ -14,12 +14,12 @@
                                 Login Admin
                             </div>
                             
-                            <form action="{{url('login')}}" method="POST">
+                            <form action="{{url('loginadmin')}}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="username">Email</label>
-                                    <input type="username" name="email" class="form-control @error('title') is-invalid @enderror" id="username">
-                                    @error('email')
+                                    <label for="username">Username</label>
+                                    <input type="username" name="username" class="form-control @error('username') is-invalid @enderror" id="username">
+                                    @error('username')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

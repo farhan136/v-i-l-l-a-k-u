@@ -14,15 +14,24 @@ use App\Models\Payment;
 
 class AdminsController extends Controller
 {
+    public function login(Request $request){
+        $validated = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        
+    }
+
     public function daftar(Request $request){ 
         $validated = $request->validate([
-          'foto' => 'required|mimes:jpg,bmp,png',
-          'nama' => 'required',
-          'email' => 'required',
-          'pekerjaan' => 'required',
-          'password' => 'required',
-          'password2' => 'required',
-      ]);
+            'foto' => 'required|mimes:jpg,bmp,png',
+            'nama' => 'required',
+            'email' => 'required',
+            'pekerjaan' => 'required',
+            'password' => 'required',
+            'password2' => 'required',
+        ]);
 
         $user = new User;
 
