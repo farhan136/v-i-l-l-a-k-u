@@ -12,38 +12,38 @@ use Illuminate\Support\Facades\Auth;
 class PembayaransController extends Controller
 { 
     public function proses_upload(Request $request){
-        $pesanan = Pemesanan::find($request->pemesanan_id);
-
+        
+        $payment = Payment::find($request->id_payment);
+        
         $validated = $request->validate([
           'upload_bukti' => 'required',
           'asal_bank' => 'required',
           'nama_pengirim' => 'required',
-          'no_pengirim' => 'required',
-          'pemesanan_id' => 'required',
+          'no_pengirim' => 'required|max:12',
         ]);
-        
+
         // menyimpan data file yang diupload ke variabel $file
         $file = $request->file('upload_bukti'); 
 
         // nama file
         $nama = $file->getClientOriginalName();
 
-        Payment::create([
-            'user_id' => Auth::user()->id,
-            'villa_id' => $pesanan->villa_id,
-            'payment_status' => 'pending',
-            'mulai' => $pesanan->mulai,
-            'selesai' => $pesanan->selesai,
-            'malam' => $pesanan->malam,
-            'upload_bukti' => $nama,
-            'asal_bank' => $request->asal_bank,
-            'nama_pengirim' => $request->nama_pengirim,
-            'no_pengirim' => $request->no_pengirim,
-            'total_harga'=>$request->total
-        ]);
+        if ($file == null) {
+            $status = "unpaid";
+            $nama = null;
+            $asal_bank = null;
+        }else{
+            $status = "pending";
+            $asal_bank = $request->asal_bank;
+        }
 
-        //hapus data dari pemesanan
-        $pesanan->delete();
+        $payment->update([
+            'payment_status' => $status,
+            'upload_bukti' => $nama,
+            'asal_bank' => $asal_bank,
+            'no_pengirim' => $request->no_pengirim,
+        ]);
+        
 
         return view('user.sukses');
 
@@ -59,7 +59,42 @@ class PembayaransController extends Controller
     }
 
     public function tes(){
-      $pesanan = Pemesanan::all();
-      return view('user.payment', ['pesanan'=>$pesanan->last()]);
+      $payment = Payment::all();
+      return view('user.payment', ['payment'=>$payment->last()]);
     }
-  }
+
+    public function transaksi(){
+        $transaksi = Payment::all();
+        return view('admin.pemesanan', ['transaksi'=>$transaksi]);
+    }
+
+    public function detailtransaksi($id)
+    {
+        // $det_pes = Pemesanan::where('id', $id)->first();
+        $det_pay = Payment::find($id);
+        return view('admin.pemesanan_detail', ['payment'=>$det_pay]);
+    }
+
+    public function riwayat()
+    {
+        $id = Auth::user()->id;
+        
+        $riwayat_payment = Payment::where('user_id', $id)->get();
+        
+        return view('user.riwayat', ['payment'=>$riwayat_payment]);    
+        
+    }
+
+    public function testi()
+    {
+        $id = Auth::user()->id;
+        $cekTransaksi = Payment::where('user_id', $id)
+            ->where('payment_status',  '!='  ,'unpaid')
+            ->get();
+        if ($cekTransaksi->isNotEmpty()) {
+            return view('user.tambahtesti');
+        }else{
+            return redirect('/')->with('message', 'Anda belum login');
+        }
+    }
+}

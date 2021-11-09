@@ -13,14 +13,16 @@ class PemesananController extends Controller
 {
     public function store(Request $request)
     {
-        $pemesanan = new Pemesanan;
-        $pemesanan->villa_id = $request->villa_id;
-        $pemesanan->mulai = $request->mulai;
-        $pemesanan->selesai = $request->selesai;
-        $pemesanan->malam = $request->malam;
-        $pemesanan->total_harga = $request->total_harga;
+        $payment = new Payment;
+        $payment->villa_id = $request->villa_id;
+        $payment->user_id = Auth::user()->id;
+        $payment->nama_pengirim = Auth::user()->name;
+        $payment->mulai = $request->mulai;
+        $payment->selesai = $request->selesai;
+        $payment->malam = $request->malam;
+        $payment->total_harga = $request->total_harga;
 
-        $pemesanan->save();
+        $payment->save();
         return redirect('/viewPayment');
     }
 
@@ -39,11 +41,6 @@ class PemesananController extends Controller
         return redirect('user-booking');
     }
 
-    public function detail($id)
-    {
-        $det_pes = Pemesanan::where('id', $id)->first();
-        $det_pay = Payment::where('pemesanan_id', $id)->first();
-        return view('admin.pemesanan_detail', ['pesanan'=>$det_pes, 'payment'=>$det_pay]);
-    }
+    
     
 }

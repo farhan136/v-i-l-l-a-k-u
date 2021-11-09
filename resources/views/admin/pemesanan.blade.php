@@ -31,14 +31,15 @@
                     <td>Rp. <?php echo number_format($tr->total_harga); ?></td>
                     <td class="text-center">
                       <button class="btn btn-info text-white">
-                        <a href="detailpesanan/{{$tr->id}}" class="text-white"><i class="far fa-eye"></i></a>
+                        <a href="detailtransaksi/{{$tr->id}}" class="text-white"><i class="far fa-eye"></i></a>
                       </button>
-                      <button class="btn btn-warning">
-                        <a href="edit/{{$tr->id}}" class="text-white"><i class="fas fa-edit"></i></a>
+                      <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal{{$tr->id}}">Ubah Status
                       </button>
-                      <button class="btn btn-danger">
+
+                      @include('admin.modalubahstatus')
+                      <!-- <button class="btn btn-danger">
                         <a href="/hapuspesanan/{{$tr->id}}" class="text-white"><i class="far fa-trash-alt"></i></a>
-                      </button>
+                      </button> -->
                     </td>
                   </tr>
                   @endforeach

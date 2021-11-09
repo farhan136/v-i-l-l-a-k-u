@@ -20,18 +20,17 @@
 
                     <label>Total Harga</label>
                     <div class="input-group mb-2">
-                        <input type="text" placeholder="Please type here.." value="Rp. {{number_format($pesanan->total_harga*1.15)}}" disabled>
+                        <input type="text" placeholder="Please type here.." value="Rp. {{number_format($payment->total_harga*1.15)}}" disabled>
                     </div>
-                    <input type="hidden" name="id_pemesanan" value="{{$pesanan->id}}">
-                    <input type="hidden" name="total" value="{{$pesanan->total_harga*1.15}}">
+                    
+                    <input type="hidden" name="total" value="{{$payment->total_harga*1.15}}">
                     <div class="section-left col-md-6">
                         <img src="{{asset('asset/elements/iconvilla-02.png')}}" alt="cover-login" width="200px">
                     </div>
                 </div>
                 <div class="col-5 py-4">
                     <div class="input-text pl-5">
-                        <input type="hidden" name="pemesanan_id" value="{{$pesanan->id}}">
-                        <input type="hidden" name="total" value="{{$pesanan->total_harga*1.15}}">
+                        <input type="hidden" name="id_payment" value="{{$payment->id}}">
                         <label for="bukti-transfer">Upload Bukti Transfer</label>
                         <div class="input-group mb-2">
                             <input type="file" name="upload_bukti" class="form-control @error('upload_bukti') is-invalid @enderror">
@@ -51,7 +50,7 @@
                         </div>
                         <label>Nomor HP</label>
                         <div class="input-group mb-2">
-                            <input type="text" name="no_pengirim" class="form-control @error('no_pengirim') is-invalid @enderror" placeholder="Please type here..">
+                            <input type="number" name="no_pengirim" class="form-control @error('no_pengirim') is-invalid @enderror" placeholder="Please type here..">
                             @error('no_pengirim')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -66,7 +65,7 @@
             </div>
             <div class="row justify-content-center mt-4 mb-4">
                 <div class="col-5 text-right mr-5">
-                    <button type="submit" name="hapusPemesanan" class="btn tombol">Cancel</button>
+                    <a href="{{url('/')}}" class="btn tombol">Home</a>
                 </div>
                 <div class="col-5 text-left">
                     <button type="submit"  name="pembayaranVilla" class="btn tombol" >Checkout</button>

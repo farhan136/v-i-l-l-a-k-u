@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="text-center">
-                                Login Admin
+                                <label>Login Admin</label>
                             </div>
                             
                             <form action="{{url('loginadmin')}}" method="POST">

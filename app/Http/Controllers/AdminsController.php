@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\User;
-use App\Models\Villa;
 use App\Models\Provil;
 use App\Models\Pemesanan;
 use App\Models\Payment;
@@ -15,10 +14,18 @@ use App\Models\Payment;
 class AdminsController extends Controller
 {
     public function login(Request $request){
-        $validated = $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-        ]);
+        request()->validate([
+            'username'=>'required',
+            'password'=>'required',
+        ]); 
+        $cocok = Admin::where('username', $request->username)->firstOrFail();
+        if($cocok){
+                if($request->password=$cocok->password){ 
+                    session(['login_admin' => 'true', 'nama_admin' => $cocok->nama]);
+                    return redirect('/admin');
+            }
+        }
+        return redirect('/loginadmin')->with('Message', 'Email atau Password Salah');
 
         
     }
@@ -66,27 +73,6 @@ class AdminsController extends Controller
         return view('admin.dashboard');
     }
 
-    public function villa(){
-        $villas = Villa::all();
-        return view('admin.home', ['villa'=>$villas]);
-    }
-
-    public function transaksi(){
-        $transaksi = Payment::all();
-        return view('admin.pemesanan', ['transaksi'=>$transaksi]);
-    }
-
-    public function editvilla($id){
-        $cocok = Villa::find($id);
-        return view('admin.home_edit', ['cocok'=>$cocok]);
-    }
-
-    public function hapusvilla($id){
-        $cocok = Villa::find($id);
-        $cocok->delete();
-        return view('admin.home');
-    }
-
     public function hapuspesanan($id){
         $cocok = Pemesanan::find($id);
         $cocok->delete();
@@ -104,33 +90,6 @@ class AdminsController extends Controller
         return redirect()->back();
     }
 
-    public function updatevilla(Request $request, $id)
-    {
-        $validated = $request->validate([ //saat di validate, maka semua form harus diisi, jika tidak diisi maka tidak akan berpindah
-            'pulau' => 'required',
-            'villa' => 'required',
-            'provinsi' => 'required',
-            'deskripsi' => 'required',    
-            'harga' => 'required', 
-            'nomor_hp' => 'required',
-            'alamat' => 'required',
-        ]);
-        $cocok = Villa::find($id);
-
-        $cocok->villa = $request->villa;
-        $cocok->provinsi = $request->provinsi;
-        $cocok->pulau = $request->pulau;
-        $cocok->alamat = $request->alamat;
-        $cocok->nomor_hp = $request->nomor_hp;
-        $cocok->harga = $request->harga;
-        $cocok->deskripsi = $request->deskripsi;
-
-        $cocok->save();
-
-        return redirect('/admin/villa');
-
-    }
-
     public function profil(){
         $profil = Provil::first();
         return view('admin.profil', ['profil'=>$profil]);
@@ -139,7 +98,7 @@ class AdminsController extends Controller
     public function editProfil(Request $request, $id)
     {
 
-        $validated = $request->validate([ //saat di validate, maka semua form harus diisi, jika tidak diisi maka tidak akan berpindah
+        $validated = $request->validate([
             'tentang' => 'required',
             'instagram' => 'required',
             'wa' => 'required',
@@ -161,5 +120,13 @@ class AdminsController extends Controller
     public function about(){
         $profil = Provil::first();
         return view('user.tentang', ['profil'=>$profil]);
+    }
+
+    public function logout(Request $request){
+        $request->session()->invalidate();
+
+        $request->session()->flush();
+
+        return redirect('/loginadmin');
     }
 }

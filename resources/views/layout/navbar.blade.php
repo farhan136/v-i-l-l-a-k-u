@@ -10,17 +10,23 @@
         <li class="nav-item">
           <a class="nav-link" href="{{url('/tentang')}}">About</a>
         </li>
+        
+        
         <li class="nav-item">
-          @if(Auth::check()) 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#">{{session('nama')}}</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{url('/testi')}}">Testi</a>
-              <a class="dropdown-item" href="{{url('/logoutuser')}}">Logout</a>
-            </div>
-          </li>
-
-          @endif
+          <a class="nav-link" href="{{url('/testi')}}">Testi</a>
+        </li>
+        @if(Auth::check())
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('riwayat', Auth::user()->getid())}}">Riwayat</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/logoutuser')}}">Logout</a>
+        </li>
+        @else
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/login')}}">Login</a>
+        </li>
+        @endif
         </li>
         
       </li>

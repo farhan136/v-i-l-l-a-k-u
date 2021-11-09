@@ -28,23 +28,24 @@ Route::group(['middleware'=>'auth'], function(){//middleware untuk security
 		Route::get('/viewPayment', 'App\Http\Controllers\PembayaransController@tes');
 		Route::post('/bayar', 'App\Http\Controllers\PembayaransController@proses_upload');
 		Route::get('/bukti_pdf', 'App\Http\Controllers\PembayaransController@cetak_pdf');
-		Route::view('/testi', 'user.tambahtesti');
+		Route::get('/testi', 'App\Http\Controllers\PembayaransController@testi');
 		Route::post('tambahtesti', 'App\Http\Controllers\VillasController@testi');
+		Route::get('/riwayat/{id}', 'App\Http\Controllers\PembayaransController@riwayat')->name('riwayat');
 		Route::get('/logoutuser', 'App\Http\Controllers\OtentikasiController@logout');
 	});
 
 });
 Route::group(['middleware'=>'CekLoginAdmin'], function(){ 
 	Route::get('/admin', 'App\Http\Controllers\AdminsController@index');
-	Route::get('/admin/villa', 'App\Http\Controllers\AdminsController@villa'); 
-	Route::get('editvilla/{id}', 'App\Http\Controllers\AdminsController@editvilla');
-	Route::post('editvilla/update/{id}', 'App\Http\Controllers\AdminsController@updatevilla');
-	Route::get('hapusvilla/{id}', 'App\Http\Controllers\AdminsController@hapusvilla');
+	Route::get('/admin/villa', 'App\Http\Controllers\VillasController@tampilkanvilla'); 
+	Route::get('editvilla/{id}', 'App\Http\Controllers\VillasController@editvilla');
+	Route::post('editvilla/update/{id}', 'App\Http\Controllers\VillasController@updatevilla');
+	Route::get('hapusvilla/{id}', 'App\Http\Controllers\VillasController@hapusvilla');
 	Route::get('/detail/{id}', 'App\Http\Controllers\VillasController@detail');
 	Route::post('tambah', 'App\Http\Controllers\VillasController@store');
 
-	Route::get('/admin/pemesanan', 'App\Http\Controllers\AdminsController@transaksi');
-	Route::get('/admin/detailpesanan/{id}', 'App\Http\Controllers\PemesananController@detail');
+	Route::get('/admin/pemesanan', 'App\Http\Controllers\PembayaransController@transaksi');
+	Route::get('/admin/detailtransaksi/{id}', 'App\Http\Controllers\PembayaransController@detailtransaksi');
 
 	Route::get('/admin/profil', 'App\Http\Controllers\AdminsController@profil');
 	Route::post('admin/editProfil/{id}', 'App\Http\Controllers\AdminsController@editProfil');
@@ -54,7 +55,7 @@ Route::group(['middleware'=>'CekLoginAdmin'], function(){
 	Route::get('/admin/users', 'App\Http\Controllers\AdminsController@user');
 	Route::get('/hapusUser/{id}', 'App\Http\Controllers\AdminsController@hapususer');
 
-	Route::get('/logoutadmin', 'App\Http\Controllers\OtentikasiController@logout');
+	Route::get('/logoutadmin', 'App\Http\Controllers\AdminsController@logout');
 });
 
 

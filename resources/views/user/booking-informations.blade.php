@@ -1,7 +1,6 @@
 @extends('layout.main')<!-- untuk mengambil template main -->
 @section('judul', 'Booking Information') <!-- untuk section yang bernama title, ganti dengan villaku -->
 @section('isi')
-@include('layout.navbar')
     <!-- Main -->
     <section class="form-input">
         <div class="row mt-4">

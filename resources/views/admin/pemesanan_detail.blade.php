@@ -14,15 +14,15 @@
                     <tbody>
                         <tr>
                             <td>Mulai </td>
-                            <td>: {{$pesanan->mulai}}</td>
+                            <td>: {{$payment->mulai}}</td>
                         </tr>
                         <tr>
                             <td>Selesai </td>
-                            <td>: {{$pesanan->selesai}}</td>
+                            <td>: {{$payment->selesai}}</td>
                         </tr>
                         <tr>
                             <td>Malam </td>
-                            <td>: {{$pesanan->malam}}</td>
+                            <td>: {{$payment->malam}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -61,10 +61,10 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{$pesanan->villa->id}}</td>
-                                    <td>{{$pesanan->villa->villa}}</td>
-                                    <td><img src="/{{$pesanan->villa->foto_utama}}" alt="villa-pemesanan" height="100px"></td>
-                                    <td>{{$pesanan->villa->alamat}}</td>
+                                    <td>{{$payment->villa->id}}</td>
+                                    <td>{{$payment->villa->villa}}</td>
+                                    <td><img src="/{{$payment->villa->foto_utama}}" alt="villa-pemesanan" height="100px"></td>
+                                    <td>{{$payment->villa->alamat}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -79,11 +79,11 @@
                     </tr>
                     <tr>
                         <td>Sub Total</td>
-                        <td>: Rp. <?php echo number_format($pesanan->total_harga); ?></td>
+                        <td>: Rp. <?php echo number_format($payment->total_harga); ?></td>
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td>: Rp. <?php echo number_format($pesanan->total_harga * 0.15 + $pesanan->total_harga); ?></td>
+                        <td>: Rp. <?php echo number_format($payment->total_harga * 0.15 + $payment->total_harga); ?></td>
                     </tr>
                     </tbody>
                 </table>
