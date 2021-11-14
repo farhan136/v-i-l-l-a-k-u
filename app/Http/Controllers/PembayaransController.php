@@ -97,4 +97,34 @@ class PembayaransController extends Controller
             return redirect('/')->with('message', 'Anda belum login');
         }
     }
+
+    public function ubahStatus(Request $request, $id)
+    {
+        $payment = Payment::find($id);
+
+        $payment->payment_status = $request->status;
+
+        $payment->Save();
+
+        return redirect()->back()->with('status', 'Pemesanan berhasil diubah');
+    }
+
+    public function lanjut($id)
+    {
+        $payment = Payment::find($id);
+
+        return view('user.payment', ['payment'=>$payment]);
+    }
+
+    public function cancel($id)
+    {
+        
+        $payment = Payment::find($id);
+        
+        $payment->payment_status = "cancelled";
+        
+        $payment->Save();
+        
+        return redirect()->back()->with('status', 'Pemesanan berhasil dibatalkan');
+    }
 }

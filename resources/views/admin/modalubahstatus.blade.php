@@ -8,7 +8,8 @@
       <div class="modal-body">
         Status saat ini = {{$tr->payment_status}}
 
-        <form action="{{url('ubahstatus/', $tr->id)}}">
+        <form action="{{url('ubahstatus', $tr->id)}}" method="post">
+          @csrf
           <input type="radio" name="status" value="unpaid" class="btn btn-info" />unpaid<br />
           <input type="radio" name="status" value="pending" class="btn btn-secondary" />pending<br />
           <input type="radio" name="status" value="paid" class="btn btn-success" />paid<br />

@@ -11,7 +11,7 @@
                 <h1>Payment</h1>
             </div>
         </div>
-        <form action="/bayar" method="POST" enctype="multipart/form-data">
+        <form action="{{url('bayar')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row justify-content-center mt-5">
                 <div class="col-5 py-4">

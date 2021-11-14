@@ -20,13 +20,16 @@ Route::view('/loginadmin', 'admin.login');
 Route::post('loginadmin', 'App\Http\Controllers\AdminsController@login');
 
 
-Route::group(['middleware'=>'auth'], function(){//middleware untuk security
+Route::group(['middleware'=>'auth'], function(){
 	Route::group(['middleware'=>'CekLogin:user'], function(){
 		Route::view('/user-booking',  'user.booking-informations');
 		Route::post('/booking/{id}', 'App\Http\Controllers\PemesananController@store'); 
 
 		Route::get('/viewPayment', 'App\Http\Controllers\PembayaransController@tes');
-		Route::post('/bayar', 'App\Http\Controllers\PembayaransController@proses_upload');
+		Route::post('lanjutBayar/{id}', 'App\Http\Controllers\PembayaransController@lanjut');
+		Route::post('cancelBayar/{id}', 'App\Http\Controllers\PembayaransController@cancel');
+		Route::post('ubahStatus/{id}', 'App\Http\Controllers\PembayaransController@ubahStatus');
+		Route::post('bayar', 'App\Http\Controllers\PembayaransController@proses_upload');
 		Route::get('/bukti_pdf', 'App\Http\Controllers\PembayaransController@cetak_pdf');
 		Route::get('/testi', 'App\Http\Controllers\PembayaransController@testi');
 		Route::post('tambahtesti', 'App\Http\Controllers\VillasController@testi');

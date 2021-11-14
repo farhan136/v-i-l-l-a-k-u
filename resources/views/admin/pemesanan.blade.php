@@ -6,6 +6,14 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header d-sm-flex align-items-center justify-content-between">
+            @if (session('status'))
+            <div class="alert alert-success">
+              {{ session('status') }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            @endif
             <h4 class="font-weight-bold mt-2">Tabel Transaksi</h4>
           </div>
           <div class="card-body">
@@ -18,6 +26,7 @@
                     <th>Tanggal Mulai</th>
                     <th>Tanggal Selesai</th>
                     <th>Harga</th>
+                    <th>Status</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -29,14 +38,17 @@
                     <td>{{$tr->mulai}}</td>
                     <td>{{$tr->selesai}}</td>
                     <td>Rp. <?php echo number_format($tr->total_harga); ?></td>
+                    <td>{{$tr->payment_status}}</td>
                     <td class="text-center">
                       <button class="btn btn-info text-white">
                         <a href="detailtransaksi/{{$tr->id}}" class="text-white"><i class="far fa-eye"></i></a>
                       </button>
+                      @if($tr->payment_status == 'pending')
                       <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal{{$tr->id}}">Ubah Status
                       </button>
 
                       @include('admin.modalubahstatus')
+                      @endif
                       <!-- <button class="btn btn-danger">
                         <a href="/hapuspesanan/{{$tr->id}}" class="text-white"><i class="far fa-trash-alt"></i></a>
                       </button> -->
