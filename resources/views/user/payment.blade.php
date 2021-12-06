@@ -20,17 +20,16 @@
 
                     <label>Total Harga</label>
                     <div class="input-group mb-2">
-                        <input type="text" placeholder="Please type here.." value="Rp. {{number_format($payment->total_harga*1.15)}}" disabled>
+                        <input type="text" placeholder="Please type here.." value="Rp. {{Cookie::get('total_harga')}}" disabled>
                     </div>
                     
-                    <input type="hidden" name="total" value="{{$payment->total_harga*1.15}}">
+                    <input type="hidden" name="total" value="{{Cookie::get('total_harga')*1.15}}">
                     <div class="section-left col-md-6">
                         <img src="{{asset('asset/elements/iconvilla-02.png')}}" alt="cover-login" width="200px">
                     </div>
                 </div>
                 <div class="col-5 py-4">
                     <div class="input-text pl-5">
-                        <input type="hidden" name="id_payment" value="{{$payment->id}}">
                         <label for="bukti-transfer">Upload Bukti Transfer</label>
                         <div class="input-group mb-2">
                             <input type="file" name="upload_bukti" class="form-control @error('upload_bukti') is-invalid @enderror">
@@ -57,7 +56,7 @@
                         </div>
                         <label for="nama-pengirim">Nama Pengirim</label>
                         <div class="input-group">
-                            <input type="text" name="nama_pengirim" class="form-control" placeholder="Please type here.." value="{{Auth::user()->name}}" readonly>
+                            <input type="text" name="nama_pengirim" class="form-control" placeholder="Please type here.." value="{{Cookie::get('nama')}}" readonly>
                         </div>
 
                     </div>

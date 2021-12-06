@@ -15,6 +15,9 @@
             </div>
             @endif
             <h4 class="font-weight-bold mt-2">Tabel Transaksi</h4>
+            <button class="btn btn-primary">Paid</button>
+            <button class="btn btn-primary">Pending</button>
+            <button class="btn btn-primary">Unpaid</button>
           </div>
           <div class="card-body">
             <div class="table-responsive">

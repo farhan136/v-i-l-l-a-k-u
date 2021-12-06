@@ -16,9 +16,9 @@
     </div>
     
     <h5>Pemesanan</h5>
-    <p>Mulai :{{$pesanan->mulai}}</p>
-    <p>Selesai :{{$pesanan->selesai}}</p>
-    <p>Malam :{{$pesanan->malam}}</p>
+    <p>Mulai :{{$payment->mulai}}</p>
+    <p>Selesai :{{$payment->selesai}}</p>
+    <p>Malam :{{$payment->malam}}</p>
     <br>
     <h5>Pembayaran</h5>
     <p>Pengirim :{{$payment->nama_pengirim}}</p>
@@ -26,12 +26,12 @@
     <p>Nomer HP :{{$payment->no_pengirim}}</p>
     <br>
     <br>
-    <h5>ID Villa   :{{$pesanan->villa->id}}</h5>
-    <h5>Nama Villa :{{$pesanan->villa->villa}}</h5>
+    <h5>ID Villa   :{{$payment->villa->id}}</h5>
+    <h5>Nama Villa :{{$payment->villa->villa}}</h5>
     <br>
     <h5>Tax         : 15%</h5>
-    <h5>Sub total   : Rp. <?php echo number_format($pesanan->villa->harga); ?></h5>
-    <h5>Total Harga : Rp. <?php echo number_format($pesanan->villa->harga * 0.15 + $pesanan->villa->harga); ?></h5>
+    <h5>Sub total   : Rp. <?php echo number_format($payment->villa->harga); ?></h5>
+    <h5>Total Harga : Rp. <?php echo number_format($payment->villa->harga * 0.15 + $payment->villa->harga); ?></h5>
     <br>
     
     <div class="alert alert-success" role="alert">
