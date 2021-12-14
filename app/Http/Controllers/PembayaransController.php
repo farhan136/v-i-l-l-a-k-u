@@ -142,4 +142,9 @@ class PembayaransController extends Controller
         
         return redirect()->back()->with('status', 'Pemesanan berhasil dibatalkan');
     }
+
+    public function tes()
+    {
+        return view('user.payment');
+    }
 }

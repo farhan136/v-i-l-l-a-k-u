@@ -23,7 +23,6 @@ class PemesananController extends Controller
         Cookie::queue('total_harga', $request->total_harga, 2880);
         
         return view('user.payment');
-
     }
 
     public function sesi(Request $request, $id)
