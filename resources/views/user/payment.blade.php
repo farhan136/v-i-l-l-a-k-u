@@ -64,7 +64,7 @@
             </div>
             <div class="row justify-content-center mt-4 mb-4">
                 <div class="col-5 text-right mr-5">
-                    <a href="{{url('/')}}" class="btn tombol">Home</a>
+                    @include('user.modalwarningpayment')
                 </div>
                 <div class="col-5 text-left">
                     <button type="submit"  name="pembayaranVilla" class="btn tombol" >Checkout</button>

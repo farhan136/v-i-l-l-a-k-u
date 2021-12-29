@@ -8,17 +8,20 @@
       <div class="modal-body">
         Status saat ini = {{$tr->payment_status}}
 
-        <form action="{{url('ubahstatus', $tr->id)}}" method="post">
+        <form action="{{url('ubahStatus', $tr->id)}}" method="post">
           @csrf
-          <input type="radio" name="status" value="unpaid" class="btn btn-info" />unpaid<br />
-          <input type="radio" name="status" value="pending" class="btn btn-secondary" />pending<br />
-          <input type="radio" name="status" value="paid" class="btn btn-success" />paid<br />
-          <input type="radio" name="status" value="cancelled" class="btn btn-danger" />cancelled<br />
+          <div class="form-group">
+            <input type="radio" name="status" value="unpaid" class="btn btn-info" />unpaid<br />
+            <input type="radio" name="status" value="pending" class="btn btn-secondary" />pending<br />
+            <input type="radio" name="status" value="paid" class="btn btn-success" />paid<br />
+            <input type="radio" name="status" value="cancelled" class="btn btn-danger" />cancelled<br />
+          </div>
+          <button type="submit" class="btn btn-primary">Ubah</button>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>

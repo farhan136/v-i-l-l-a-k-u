@@ -70,6 +70,8 @@ class VillasController extends Controller
             $villa->deskripsi = $request->deskripsi;
             $villa->harga = $request->harga;
             $villa->nomor_hp = $request->nomor_hp;
+            $villa->created_at = Carbon::now('+7:00'); //+7:00 adalah gmt nya
+            $villa->updated_at = Carbon::now('+7:00');
 
             $villa->save();
         }

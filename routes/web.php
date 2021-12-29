@@ -28,7 +28,7 @@ Route::group(['middleware'=>'auth'], function(){
 		Route::get('/viewPayment', 'App\Http\Controllers\PembayaransController@tes');
 		Route::post('lanjutBayar/{id}', 'App\Http\Controllers\PembayaransController@lanjut');
 		Route::post('cancelBayar/{id}', 'App\Http\Controllers\PembayaransController@cancel');
-		Route::post('ubahStatus/{id}', 'App\Http\Controllers\PembayaransController@ubahStatus');
+		
 		Route::post('bayar', 'App\Http\Controllers\PembayaransController@proses_upload');
 		Route::get('/bukti_pdf', 'App\Http\Controllers\PembayaransController@cetak_pdf');
 		Route::get('/testi', 'App\Http\Controllers\PembayaransController@testi');
@@ -54,6 +54,7 @@ Route::group(['middleware'=>'CekLoginAdmin'], function(){
 	Route::post('admin/editProfil/{id}', 'App\Http\Controllers\AdminsController@editProfil');
 
 	Route::get('/hapuspesanan/{id}', 'App\Http\Controllers\AdminsController@hapuspesanan');
+	Route::post('ubahStatus/{id}', 'App\Http\Controllers\PembayaransController@ubahStatus');
 
 	Route::get('/admin/users', 'App\Http\Controllers\AdminsController@user');
 	Route::get('/hapusUser/{id}', 'App\Http\Controllers\AdminsController@hapususer');

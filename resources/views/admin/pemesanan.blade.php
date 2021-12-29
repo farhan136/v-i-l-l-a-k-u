@@ -6,6 +6,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header d-sm-flex align-items-center justify-content-between">
+            <h4 class="font-weight-bold mt-2">Tabel Transaksi</h4>
             @if (session('status'))
             <div class="alert alert-success">
               {{ session('status') }}
@@ -14,10 +15,13 @@
               </button>
             </div>
             @endif
+<<<<<<< HEAD
             <h4 class="font-weight-bold mt-2">Tabel Transaksi</h4>
             <button class="btn btn-primary">Paid</button>
             <button class="btn btn-primary">Pending</button>
             <button class="btn btn-primary">Unpaid</button>
+=======
+>>>>>>> mantep
           </div>
           <div class="card-body">
             <div class="table-responsive">

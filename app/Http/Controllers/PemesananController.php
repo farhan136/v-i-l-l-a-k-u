@@ -14,15 +14,19 @@ class PemesananController extends Controller
 {
     public function store(Request $request)
     {
-        Cookie::queue('villa_id', $request->villa_id, 2880);
-        Cookie::queue('user_id', Auth::user()->id, 2880);
-        Cookie::queue('nama', Auth::user()->name, 2880);
-        Cookie::queue('mulai', $request->mulai, 2880);
-        Cookie::queue('selesai', $request->selesai, 2880);
-        Cookie::queue('malam', $request->malam, 2880);
-        Cookie::queue('total_harga', $request->total_harga, 2880);
-        
-        return view('user.payment');
+        $payment = new Payment;
+        $payment->villa_id = $request->villa_id;
+        $payment->user_id = Auth::user()->id;
+        $payment->nama_pengirim = Auth::user()->name;
+        $payment->mulai = $request->mulai;
+        $payment->selesai = $request->selesai;
+        $payment->malam = $request->malam;
+        $payment->total_harga = $request->total_harga;
+        $payment->created_at = Carbon::now('+7:00'); //+7:00 adalah gmt nya
+        $payment->updated_at = Carbon::now('+7:00');
+
+        $payment->save();
+        return redirect('/viewPayment');
     }
 
     public function sesi(Request $request, $id)
