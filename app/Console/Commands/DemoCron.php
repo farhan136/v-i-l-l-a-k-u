@@ -6,11 +6,11 @@ use Illuminate\Console\Command;
 use App\Models\Payment;
 use Carbon\Carbon;
 
-class stokCron extends Command
+class DemoCron extends Command
 {
-    protected $signature = 'cron:log';
+    protected $signature = 'demo:cron';
 
-    protected $description = 'Membuat log, yang memastikan command jalan';
+    protected $description = 'Menghapus transaksi yang batas bayarnya sudah telat';
 
     public function __construct()
     {
@@ -26,11 +26,9 @@ class stokCron extends Command
         foreach ($pembayaran as $p) {
                 $selisih = $now->diffInDays($p->created_at);
                 if ($selisih > 0 ) {
-                    array_push($tanggalMulai, $selisih);
+                    $p->delete();
                 }
         }
-        
-        \Log::info($tanggalMulai);
-        \Log::info($now);
+        \Log::info($pembayaran);
     }
 }

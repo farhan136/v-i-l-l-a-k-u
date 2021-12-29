@@ -21,6 +21,8 @@ class PemesananController extends Controller
         $payment->selesai = $request->selesai;
         $payment->malam = $request->malam;
         $payment->total_harga = $request->total_harga;
+        $payment->created_at = Carbon::now('+7:00'); //+7:00 adalah gmt nya
+        $payment->updated_at = Carbon::now('+7:00');
 
         $payment->save();
         return redirect('/viewPayment');

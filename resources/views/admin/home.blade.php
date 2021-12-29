@@ -28,14 +28,14 @@
             <tr>
               <td>{{$loop->iteration}}</td>
               <td>
-                <img src="{{$v->foto_utama}}" class="img-cover img-fluid" alt="" height="100px">
+                <img src="/{{$v->foto_utama}}" class="img-cover img-fluid" alt="" height="100px">
               </td>
               <td>{{$v->villa}}</td>
               <td>{{$v->alamat}}</td>
               <td>Rp. <?php echo number_format($v->harga); ?></td>
               <td class="text-center">
                 <button class="btn btn-info text-white">
-                  <a href="detail/{{$v->id}}" class="text-white"><i class="far fa-eye"></i></a>
+                  <a href="{{url('/detail', $v->id)}}" class="text-white"><i class="far fa-eye"></i></a>
                 </button>
                 <button class="btn btn-warning">
                   <a href="editvilla/{{$v->id}}" class="text-white"><i class="fas fa-edit"></i></a>

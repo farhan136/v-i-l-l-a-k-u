@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <a href="/admin" class="btn btn-warning">Kembali</a>
+            <a href="{{url('/admin/villa')}}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
