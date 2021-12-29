@@ -76,26 +76,8 @@ class PembayaransController extends Controller
 
     public function riwayat(Request $request)
     {
-        if ($request->cookie('user_id')!=null) {
-            $unpaid = array('payment_status' => 'unpaid',
-                'mulai'=>$request->cookie('mulai'),
-                'selesai'=>$request->cookie('selesai'),
-                'malam'=>$request->cookie('malam'),
-                'total_harga'=>$request->cookie('total_harga'),
-                'villa_id'=>$request->cookie('villa_id'),
-                'user_id'=>$request->cookie('user_id'),
-                'asal_bank'=>null,
-                'no_pengirim'=>null,
-                'upload_bukti'=>null
-            );
-        }
-
         $id = Auth::user()->id;
-        // $unpaid = null;
-        $riwayat_payment = Payment::where('user_id', $id)->get()->toArray();
-        $count = count($riwayat_payment); //mendapatkan nilai berapa jumlah array yang berhasil ditambahkan
-        array_push($riwayat_payment, $unpaid);
-        dd($riwayat_payment);
+        $riwayat_payment = Payment::where('user_id', $id)->get();
         
         return view('user.riwayat', ['payment'=>$riwayat_payment]);    
         
