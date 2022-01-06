@@ -7,8 +7,8 @@ Route::post('login', 'App\Http\Controllers\OtentikasiController@login');
 Route::view('/daftaruser', 'user.register');
 Route::post('/daftaruser', 'App\Http\Controllers\OtentikasiController@daftar');
 
-// Route::view('/daftarAdmin', 'admin.daftar');
-// Route::post('/daftaradmin', 'App\Http\Controllers\AdminsController@daftar');
+Route::view('/daftarAdmin', 'admin.daftar');
+Route::post('/daftaradmin', 'App\Http\Controllers\AdminsController@daftar');
 
 
 Route::get('/', 'App\Http\Controllers\VillasController@index');
@@ -38,7 +38,7 @@ Route::group(['middleware'=>'auth'], function(){
 	});
 
 });
-Route::group(['middleware'=>'CekLoginAdmin'], function(){ 
+// Route::group(['middleware'=>'CekLoginAdmin'], function(){ 
 	Route::get('/admin', 'App\Http\Controllers\AdminsController@index');
 	Route::get('/admin/villa', 'App\Http\Controllers\VillasController@tampilkanvilla'); 
 	Route::get('editvilla/{id}', 'App\Http\Controllers\VillasController@editvilla');
@@ -60,6 +60,12 @@ Route::group(['middleware'=>'CekLoginAdmin'], function(){
 	Route::get('/hapusUser/{id}', 'App\Http\Controllers\AdminsController@hapususer');
 
 	Route::get('/logoutadmin', 'App\Http\Controllers\AdminsController@logout');
+// });
+
+Route::get('/registrasi-pemilik', function(){
+	return view('pemilik.register');
 });
 
-
+Route::prefix('owner')->name('owner.')->group(function(){
+	Route::post('/registrasi', 'App\Http\Controllers\OwnerController@registrasi')->name('registrasi');
+});

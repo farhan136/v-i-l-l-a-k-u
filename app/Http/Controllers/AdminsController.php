@@ -10,21 +10,56 @@ use App\Models\User;
 use App\Models\Provil;
 use App\Models\Pemesanan;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Auth;
 
 class AdminsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('guest:admin')->except('logout');
+    }
+    
+    protected function guard()
+    {
+        return Auth::guard('admin');
+    }
+
     public function login(Request $request){
-        request()->validate([
-            'username'=>'required',
+        $request->validate([
+            'email'=>'required',
             'password'=>'required',
         ]); 
-        $cocok = Admin::where('username', $request->username)->firstOrFail();
-        if($cocok){
-                if($request->password=$cocok->password){ 
-                    session(['login_admin' => 'true', 'nama_admin' => $cocok->nama]);
-                    return redirect('/admin');
+        // dd(Auth::guard('admin'));
+        // $cocok = Admin::where('email', $request->email)->firstOrFail();
+        // if($cocok){
+        //         if(Hash::check($request->password, $cocok->password)){ 
+        //             session(['login_admin' => 'true', 'nama_admin' => $cocok->nama]);
+        //             return redirect('/admin');
+        //     }
+        // }
+        dd($request->all());
+        $credentials = [
+            'email'=>$request->email, 
+            'password'=>$request->password
+        ];
+
+        $tes = Auth::guard('admin')->attempt($credentials);
+        dd($tes);
+
+
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $admin = Auth::admin();
+            dd($admin);
+            if ($admin->role == 'ADMIN') {
+                // return redirect()->intended();
+                dd('sukses sbg admin');
+            }elseif ($admin->role=='OWNER') {
+                // return redirect()->intended();
+                dd('berhasil sbg owner');
             }
         }
+        dd("gagal");
         return redirect('/loginadmin')->with('Message', 'Email atau Password Salah');
 
         
@@ -32,7 +67,7 @@ class AdminsController extends Controller
 
     public function daftar(Request $request){ 
         $validated = $request->validate([
-            'foto' => 'required|mimes:jpg,bmp,png',
+            // 'foto' => 'required|mimes:jpg,bmp,png',
             'nama' => 'required',
             'email' => 'required',
             'pekerjaan' => 'required',
@@ -40,7 +75,7 @@ class AdminsController extends Controller
             'password2' => 'required',
         ]);
 
-        $user = new User;
+        $admin = new Admin;
 
         if ($request->password = $request->password2) {
             $foto = $request->file('foto');
@@ -48,16 +83,15 @@ class AdminsController extends Controller
             //nama file di dalam folder ketika disimpan
             $nama_foto = $foto->getClientOriginalName();
 
-            $tujuan_upload = 'image/user';
+            $tujuan_upload = 'image/admin';
             $foto->move($tujuan_upload,$nama_foto);
 
-            $user->role = "admin";
-            $user->email = $request->email;
-            $user->name = $request->nama;
-            $user->foto = $nama_foto;
-            $user->pekerjaan = $request->pekerjaan;
-            $user->password = bcrypt($request->password); 
-            $user->save();
+            $admin->email = $request->email;
+            $admin->nama = $request->nama;
+            $admin->foto = $nama_foto;
+            $admin->pekerjaan = $request->pekerjaan;
+            $admin->password = bcrypt($request->password); 
+            $admin->save();
 
             return view('admin.login');   
         }

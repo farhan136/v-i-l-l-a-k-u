@@ -69,7 +69,6 @@ class PembayaransController extends Controller
 
     public function detailtransaksi($id)
     {
-        // $det_pes = Pemesanan::where('id', $id)->first();
         $det_pay = Payment::find($id);
         return view('admin.pemesanan_detail', ['payment'=>$det_pay]);
     }

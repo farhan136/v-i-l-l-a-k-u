@@ -50,8 +50,7 @@ class VillasController extends Controller
             $foto_utama = $request->file('foto_utama'); 
             $foto_indoor = $request->file('foto_indoor'); 
             $foto_outdoor = $request->file('foto_outdoor');
-
-
+            
             //nama file di dalam folder ketika disimpan
             $nama_utama = $foto_utama->getClientOriginalName();
             $nama_indoor = $foto_indoor->getClientOriginalName();
