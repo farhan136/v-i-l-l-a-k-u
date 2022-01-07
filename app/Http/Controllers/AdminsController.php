@@ -15,12 +15,12 @@ class AdminsController extends Controller
 {
     public function login(Request $request){
         request()->validate([
-            'username'=>'required',
+            'email'=>'required',
             'password'=>'required',
         ]); 
-        $cocok = Admin::where('username', $request->username)->firstOrFail();
+        $cocok = Admin::where('email', $request->email)->firstOrFail();
         if($cocok){
-                if($request->password=$cocok->password){ 
+                if(Hash::check($request->password, $cocok->password)){ 
                     session(['login_admin' => 'true', 'nama_admin' => $cocok->nama]);
                     return redirect('/admin');
             }
@@ -40,7 +40,7 @@ class AdminsController extends Controller
             'password2' => 'required',
         ]);
 
-        $user = new User;
+        $admin = new Admin;
 
         if ($request->password = $request->password2) {
             $foto = $request->file('foto');
@@ -48,16 +48,16 @@ class AdminsController extends Controller
             //nama file di dalam folder ketika disimpan
             $nama_foto = $foto->getClientOriginalName();
 
-            $tujuan_upload = 'image/user';
+            $tujuan_upload = 'image/admin';
             $foto->move($tujuan_upload,$nama_foto);
 
-            $user->role = "admin";
-            $user->email = $request->email;
-            $user->name = $request->nama;
-            $user->foto = $nama_foto;
-            $user->pekerjaan = $request->pekerjaan;
-            $user->password = bcrypt($request->password); 
-            $user->save();
+            $admin->role = "admin";
+            $admin->email = $request->email;
+            $admin->name = $request->nama;
+            $admin->foto = $nama_foto;
+            $admin->pekerjaan = $request->pekerjaan;
+            $admin->password = bcrypt($request->password); 
+            $admin->save();
 
             return view('admin.login');   
         }

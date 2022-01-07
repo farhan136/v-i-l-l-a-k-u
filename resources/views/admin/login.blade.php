@@ -17,9 +17,9 @@
                             <form action="{{url('loginadmin')}}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="username" name="username" class="form-control @error('username') is-invalid @enderror" id="username">
-                                    @error('username')
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email">
+                                    @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
