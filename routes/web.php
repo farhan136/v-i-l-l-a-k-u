@@ -22,22 +22,21 @@ Route::post('loginadmin', 'App\Http\Controllers\AdminsController@login');
 
 Route::group(['middleware'=>'auth'], function(){
 	Route::group(['middleware'=>'CekLogin:user'], function(){
-		Route::view('/user-booking',  'user.booking-informations');
 		Route::post('/booking/{id}', 'App\Http\Controllers\PemesananController@store'); 
 
-		Route::get('/viewPayment', 'App\Http\Controllers\PembayaransController@tes');
 		Route::post('lanjutBayar/{id}', 'App\Http\Controllers\PembayaransController@lanjut');
 		Route::post('cancelBayar/{id}', 'App\Http\Controllers\PembayaransController@cancel');
 		
-		Route::post('bayar', 'App\Http\Controllers\PembayaransController@proses_upload');
+		Route::post('bayar/{id}', 'App\Http\Controllers\PembayaransController@proses_upload');
 		Route::get('/bukti_pdf', 'App\Http\Controllers\PembayaransController@cetak_pdf');
 		Route::get('/testi', 'App\Http\Controllers\PembayaransController@testi');
 		Route::post('tambahtesti', 'App\Http\Controllers\VillasController@testi');
 		Route::get('/riwayat/{id}', 'App\Http\Controllers\PembayaransController@riwayat')->name('riwayat');
 		Route::get('/logoutuser', 'App\Http\Controllers\OtentikasiController@logout');
 	});
-
 });
+
+
 Route::group(['middleware'=>'CekLoginAdmin'], function(){ 
 	Route::get('/admin', 'App\Http\Controllers\AdminsController@index');
 	Route::get('/admin/villa', 'App\Http\Controllers\VillasController@tampilkanvilla'); 
