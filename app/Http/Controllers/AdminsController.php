@@ -30,7 +30,6 @@ class AdminsController extends Controller
             'email'=>'required',
             'password'=>'required',
         ]); 
-        // dd(Auth::guard('admin'));
         // $cocok = Admin::where('email', $request->email)->firstOrFail();
         // if($cocok){
         //         if(Hash::check($request->password, $cocok->password)){ 
@@ -38,28 +37,23 @@ class AdminsController extends Controller
         //             return redirect('/admin');
         //     }
         // }
-        dd($request->all());
         $credentials = [
             'email'=>$request->email, 
             'password'=>$request->password
         ];
 
-        $tes = Auth::guard('admin')->attempt($credentials);
-        dd($tes);
-
-
         if (Auth::guard('admin')->attempt($credentials)) {
-            $admin = Auth::admin();
-            dd($admin);
-            if ($admin->role == 'ADMIN') {
+            $admin = Auth::guard('admin')->user();
+            // dd($admin->roles);
+            if ($admin->roles == 'ADMIN') {
                 // return redirect()->intended();
                 dd('sukses sbg admin');
-            }elseif ($admin->role=='OWNER') {
+            }elseif ($admin->roles=='OWNER') {
                 // return redirect()->intended();
                 dd('berhasil sbg owner');
             }
         }
-        dd("gagal");
+        // dd("gagal");
         return redirect('/loginadmin')->with('Message', 'Email atau Password Salah');
 
         

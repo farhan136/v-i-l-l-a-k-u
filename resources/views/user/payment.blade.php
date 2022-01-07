@@ -11,7 +11,7 @@
                 <h1>Payment</h1>
             </div>
         </div>
-        <form action="{{url('bayar')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{url('bayar', $payment->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row justify-content-center mt-5">
                 <div class="col-5 py-4">
@@ -20,10 +20,10 @@
 
                     <label>Total Harga</label>
                     <div class="input-group mb-2">
-                        <input type="text" placeholder="Please type here.." value="Rp. {{Cookie::get('total_harga')}}" disabled>
+                        <input type="text" placeholder="Please type here.." value="Rp. {{$payment->total_harga}}" disabled>
                     </div>
                     
-                    <input type="hidden" name="total" value="{{Cookie::get('total_harga')*1.15}}">
+                    <input type="hidden" name="total" value="{{$payment->total_harga*1.15}}">
                     <div class="section-left col-md-6">
                         <img src="{{asset('asset/elements/iconvilla-02.png')}}" alt="cover-login" width="200px">
                     </div>
@@ -56,7 +56,7 @@
                         </div>
                         <label for="nama-pengirim">Nama Pengirim</label>
                         <div class="input-group">
-                            <input type="text" name="nama_pengirim" class="form-control" placeholder="Please type here.." value="{{Cookie::get('nama')}}" readonly>
+                            <input type="text" name="nama_pengirim" class="form-control" placeholder="Please type here.." value="{{$payment->nama_pengirim}}" readonly>
                         </div>
 
                     </div>

@@ -12,42 +12,28 @@ use Carbon\Carbon;
 
 class PembayaransController extends Controller
 { 
-    public function proses_upload(Request $request){
+    public function proses_upload(Request $request, $id){
 
-        $payment = new Payment;
-        
         $validated = $request->validate([
-          'upload_bukti' => 'required',
-          'asal_bank' => 'required',
-          'nama_pengirim' => 'required',
-          'no_pengirim' => 'required|max:12',
-      ]);
+            'upload_bukti' => 'required',
+            'asal_bank' => 'required',
+            'nama_pengirim' => 'required',
+            'no_pengirim' => 'required|max:12',
+        ]);
 
-        // menyimpan data file yang diupload ke variabel $file
-        $file = $request->file('upload_bukti'); 
+        $payment = Payment::find($id);
 
-        $nama = $file->store('public/bukti');
+        if($request->has('upload_bukti')){
+            // menyimpan data file yang diupload ke variabel $file
+            $file = $request->file('upload_bukti'); 
 
-        if ($file == null) {
-            $status = "unpaid";
-            $nama = null;
-            $asal_bank = null;
-        }else{
-            $status = "pending";
-            $asal_bank = $request->asal_bank;
+            $nama = $file->store('public/bukti');
+
         }
-
-        $payment->payment_status = $status;
+        $payment->payment_status = 'pending';
         $payment->upload_bukti = $nama;
-        $payment->asal_bank = $asal_bank;
+        $payment->asal_bank = $request->asal_bank;
         $payment->no_pengirim = $request->no_pengirim;
-        $payment->nama_pengirim = Auth::user()->name;
-        $payment->mulai = $request->cookie('mulai');
-        $payment->selesai = $request->cookie('selesai');
-        $payment->malam = $request->cookie('malam');
-        $payment->total_harga = $request->cookie('total_harga');
-        $payment->villa_id = $request->cookie('villa_id');
-        $payment->user_id = $request->cookie('user_id');
         $payment->save();
 
         return view('user.sukses');
@@ -125,8 +111,4 @@ class PembayaransController extends Controller
         return redirect()->back()->with('status', 'Pemesanan berhasil dibatalkan');
     }
 
-    public function tes()
-    {
-        return view('user.payment');
-    }
 }
