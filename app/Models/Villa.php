@@ -17,4 +17,8 @@ class Villa extends Model
     	return $this->hasMany(Pemesanan::class); 
     }
 
+    public function owner()
+    {
+    	return $this->belonsTp(Admin::class, 'owner_id', 'id'); 
+    }
 }

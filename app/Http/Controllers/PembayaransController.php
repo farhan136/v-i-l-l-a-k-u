@@ -48,17 +48,6 @@ class PembayaransController extends Controller
 
     }
 
-    public function transaksi(){
-        $transaksi = Payment::all();
-        return view('admin.pemesanan', ['transaksi'=>$transaksi]);
-    }
-
-    public function detailtransaksi($id)
-    {
-        $det_pay = Payment::find($id);
-        return view('admin.pemesanan_detail', ['payment'=>$det_pay]);
-    }
-
     public function riwayat(Request $request)
     {
         $id = Auth::user()->id;

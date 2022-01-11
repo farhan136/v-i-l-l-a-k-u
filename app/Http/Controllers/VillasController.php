@@ -127,52 +127,5 @@ class VillasController extends Controller
             ]);
     }
 
-    public function detail($id)
-    {
-        $detail = Villa::where('id', $id)->first();//tampilkan data dari tabel villa yang id nya = $id
-        return view('admin.detail', ['detail'=>$detail]);
-    }
-
-    public function tampilkanvilla(){
-        $villas = Villa::all();
-        return view('admin.home', ['villa'=>$villas]);
-    }
-
-    public function editvilla($id){
-        $cocok = Villa::find($id);
-        return view('admin.home_edit', ['cocok'=>$cocok]);
-    }
-
-    public function hapusvilla($id){
-        $cocok = Villa::find($id);
-        $cocok->delete();
-        return view('admin.home');
-    }
-
-    public function updatevilla(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'pulau' => 'required',
-            'villa' => 'required',
-            'provinsi' => 'required',
-            'deskripsi' => 'required',    
-            'harga' => 'required', 
-            'nomor_hp' => 'required',
-            'alamat' => 'required',
-        ]);
-        $cocok = Villa::find($id);
-
-        $cocok->villa = $request->villa;
-        $cocok->provinsi = $request->provinsi;
-        $cocok->pulau = $request->pulau;
-        $cocok->alamat = $request->alamat;
-        $cocok->nomor_hp = $request->nomor_hp;
-        $cocok->harga = $request->harga;
-        $cocok->deskripsi = $request->deskripsi;
-
-        $cocok->save();
-
-        return redirect('/admin/villa');
-
-    }
+    
 }

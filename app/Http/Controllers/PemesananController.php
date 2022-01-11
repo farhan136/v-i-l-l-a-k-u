@@ -14,13 +14,11 @@ class PemesananController extends Controller
 {
     public function store(Request $request, $id)
     {
-        // dd($id);
-
         $pesanan = Pemesanan::find($id);
 
         //save ke tabel payment
         $payment = new Payment;
-        $payment->villa_id = $request->villa_id;
+        $payment->villa_id = $pesanan->villa_id;
         $payment->user_id = Auth::user()->id;
         $payment->nama_pengirim = Auth::user()->name;
         $payment->mulai = $pesanan->mulai;

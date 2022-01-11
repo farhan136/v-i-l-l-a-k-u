@@ -17,6 +17,16 @@ class Admin extends Authenticatable
      'password', 'remember_token',
     ];
 
+    protected function getRole()
+    {
+        return $this->roles;
+    }
+
+    public function villa()
+    {
+        return $this->hasMany(Villa::class, 'id', 'villa_id');
+    }
+
     // public function getAdminPassword()
     // {
     //  return $this->password;

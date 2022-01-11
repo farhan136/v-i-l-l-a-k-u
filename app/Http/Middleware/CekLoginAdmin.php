@@ -15,16 +15,18 @@ class CekLoginAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, $roles = "")
     {
-        // if (!session('login_admin')) {
-        //     return redirect('/loginadmin');
-        // }
-
-        if (!Auth::guard('admin')->check()) {
+        if (Auth::guard('admin')->check()) {
+            $peran = Auth::guard('admin')->user()->roles;
+            if ($peran !== $roles) { //$roles adalah yang dikirim lewat route web.php
+                return redirect()->back()->with('error','Kamu gapunya akses!');
+            }
+            return $next($request);   
+        }else{
             return redirect('/loginadmin');
         }
 
-        return $next($request);
+        
     }
 }

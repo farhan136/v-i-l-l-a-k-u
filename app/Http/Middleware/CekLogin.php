@@ -8,20 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CekLogin
 {
-
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()) {
-            return redirect('login');
+        if (!Auth::guard('admin')->check()) {
+            // dd(Auth::guard('admin')->check());
+            // return redirect('/loginadmin');
+            return redirect()->route('loginadmin');
         }
-
-        $user = Auth::user();
-        
-        if ($user->role == $role) {
-            return $next($request);
-        }
-
-        return redirect()->back()->with('error','Kamu gapunya akses!');
-        
+        return $next($request);   
     }
 }

@@ -8,16 +8,15 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Provil;
-use App\Models\Pemesanan;
 use App\Models\Payment;
+use App\Models\Villa;
 use Illuminate\Support\Facades\Auth;
 
 class AdminsController extends Controller
 {
-
-    public function __construct()
+    protected function akun()
     {
-        $this->middleware('guest:admin')->except('logout');
+        return Auth::guard('admin')->user();
     }
     
     protected function guard()
@@ -43,27 +42,16 @@ class AdminsController extends Controller
         ];
 
         if (Auth::guard('admin')->attempt($credentials)) {
-            $admin = Auth::guard('admin')->user();
-            // dd($admin->roles);
-            if ($admin->roles == 'ADMIN') {
-                // return redirect()->intended();
-                dd('sukses sbg admin');
-            }elseif ($admin->roles=='OWNER') {
-                // return redirect()->intended();
-                dd('berhasil sbg owner');
-            }
+            return redirect('/admin');
         }
-        // dd("gagal");
         return redirect('/loginadmin')->with('Message', 'Email atau Password Salah');
-
-        
     }
 
     public function daftar(Request $request){ 
         $validated = $request->validate([
             // 'foto' => 'required|mimes:jpg,bmp,png',
             'nama' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:',
             'pekerjaan' => 'required',
             'password' => 'required',
             'password2' => 'required',
@@ -90,10 +78,9 @@ class AdminsController extends Controller
             return view('admin.login');   
         }
         else{
-            echo "password tidak sesuai";
+            // echo "password tidak sesuai";
+            return redirect('/daftarAdmin')->with('Message', 'Password Tidak Cocok');
         }
-
-        return redirect('/daftaradmin')->with('Message', 'Password Tidak Cocok');
     }
 
     public function index()
@@ -102,7 +89,7 @@ class AdminsController extends Controller
     }
 
     public function hapuspesanan($id){
-        $cocok = Pemesanan::find($id);
+        $cocok = Payment::find($id);
         $cocok->delete();
         return view('admin.pemesanan');
     }
@@ -150,11 +137,90 @@ class AdminsController extends Controller
         return view('user.tentang', ['profil'=>$profil]);
     }
 
+    public function detail($id)
+    {
+        $detail = Villa::where('id', $id)->first();//tampilkan data dari tabel villa yang id nya = $id
+        return view('admin.detail', ['detail'=>$detail]);
+    }
+
+    public function tampilkanvilla(){
+        $villas = Villa::all();
+        if ($this->akun()->roles === 'OWNER') {
+            $villas = Villa::Where('owner_id', $this->akun()->id)->get();
+        }
+        return view('admin.home', ['villa'=>$villas]);
+    }
+
+    public function editvilla($id){
+        $cocok = Villa::find($id);
+        return view('admin.home_edit', ['cocok'=>$cocok]);
+    }
+
+    public function hapusvilla($id){
+        $cocok = Villa::find($id);
+        $cocok->delete();
+        return view('admin.home');
+    }
+
+    public function updatevilla(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'pulau' => 'required',
+            'villa' => 'required',
+            'provinsi' => 'required',
+            'deskripsi' => 'required',    
+            'harga' => 'required', 
+            'nomor_hp' => 'required',
+            'alamat' => 'required',
+        ]);
+        $cocok = Villa::find($id);
+
+        $cocok->villa = $request->villa;
+        $cocok->provinsi = $request->provinsi;
+        $cocok->pulau = $request->pulau;
+        $cocok->alamat = $request->alamat;
+        $cocok->nomor_hp = $request->nomor_hp;
+        $cocok->harga = $request->harga;
+        $cocok->deskripsi = $request->deskripsi;
+
+        $cocok->save();
+
+        return redirect('/admin/villa');
+    }
+
+    public function transaksi(){
+        $transaksi = Payment::all();
+        if ($this->akun()->roles === 'OWNER') {
+            $villas = Villa::select('id')->Where('owner_id', $this->akun()->id)->get()->toArray();
+            $transaksi = DB::table('tbl_pembayaran')
+            ->join('tbl_villa', 'tbl_villa.id', '=', 'tbl_pembayaran.villa_id')
+            ->whereIn('villa_id', $villas)
+            ->select('tbl_pembayaran.id as id',
+                'tbl_pembayaran.mulai as mulai',
+                'tbl_pembayaran.selesai as selesai',
+                'tbl_pembayaran.total_harga as total_harga',
+                'tbl_pembayaran.payment_status as payment_status',
+                'tbl_villa.villa as villa'
+            )
+            ->get();
+        }
+        return view('admin.pemesanan', ['transaksi'=>$transaksi]);
+    }
+
+    public function detailtransaksi($id)
+    {
+        $det_pay = Payment::find($id);
+        return view('admin.pemesanan_detail', ['payment'=>$det_pay]);
+    }
+
     public function logout(Request $request){
+        
         $request->session()->invalidate();
 
         $request->session()->flush();
 
+        Auth::logout();
+        
         return redirect('/loginadmin');
     }
 }

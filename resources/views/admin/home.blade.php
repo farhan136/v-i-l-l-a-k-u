@@ -6,9 +6,11 @@
   <div class="card shadow mb-4">
     <div class="card-header d-sm-flex align-items-center justify-content-between">
       <h4 class="font-weight-bold mt-2">Villa</h4>
+      @if (Auth::guard('admin')->user()->roles === 'OWNER')
       <button class="btn add shadow-sm" data-toggle="modal" data-target="#dashboardModalTambah">
         <i class="fas fa-plus"></i>
       </button>
+      @endif
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -34,14 +36,16 @@
               <td>{{$v->alamat}}</td>
               <td>Rp. <?php echo number_format($v->harga); ?></td>
               <td class="text-center">
-                <button class="btn btn-info text-white">
-                  <a href="{{url('/detail', $v->id)}}" class="text-white"><i class="far fa-eye"></i></a>
-                </button>
+                @if (Auth::guard('admin')->user()->roles === 'OWNER')
                 <button class="btn btn-warning">
                   <a href="editvilla/{{$v->id}}" class="text-white"><i class="fas fa-edit"></i></a>
                 </button>
+                @endif
                 <button class="btn btn-danger">
                   <a href="hapusvilla/{{$v->id}}" class="text-white"><i class="far fa-trash-alt"></i></a>
+                </button>
+                <button class="btn btn-info text-white">
+                  <a href="{{url('/detail', $v->id)}}" class="text-white"><i class="far fa-eye"></i></a>
                 </button>
               </td>
             </tr>

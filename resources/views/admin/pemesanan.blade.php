@@ -15,13 +15,6 @@
               </button>
             </div>
             @endif
-<<<<<<< HEAD
-            <h4 class="font-weight-bold mt-2">Tabel Transaksi</h4>
-            <button class="btn btn-primary">Paid</button>
-            <button class="btn btn-primary">Pending</button>
-            <button class="btn btn-primary">Unpaid</button>
-=======
->>>>>>> mantep
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -41,7 +34,7 @@
                   @foreach($transaksi as $tr)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$tr->villa->villa}}</td>
+                    <td>{{$tr->villa}}</td>
                     <td>{{$tr->mulai}}</td>
                     <td>{{$tr->selesai}}</td>
                     <td>Rp. <?php echo number_format($tr->total_harga); ?></td>

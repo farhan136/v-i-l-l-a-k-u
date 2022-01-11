@@ -34,9 +34,7 @@
                                     {{session('Message')}}
                                 @endif
                                 <button type="submit" name="login" class="btn">Sign In</button>
-                                <a  name="daftar" class="btn" href="/daftaruser">Register</a>
                                 <br><br>
-                                <a  name="daftar" class="btn" href="/">Back</a>
                             </form>
                         </div>
                     </div>
