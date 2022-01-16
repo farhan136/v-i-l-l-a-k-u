@@ -27,6 +27,7 @@ Route::group(['middleware'=>'auth'], function(){
 		Route::post('lanjutBayar/{id}', 'App\Http\Controllers\PembayaransController@lanjut');
 		Route::post('cancelBayar/{id}', 'App\Http\Controllers\PembayaransController@cancel');
 		
+		Route::get('/booking-information', 'App\Http\Controllers\PemesananController@binfo');		
 		Route::post('bayar/{id}', 'App\Http\Controllers\PembayaransController@proses_upload');
 		Route::get('/bukti_pdf', 'App\Http\Controllers\PembayaransController@cetak_pdf');
 		Route::get('/testi', 'App\Http\Controllers\PembayaransController@testi');

@@ -62,10 +62,15 @@ class PemesananController extends Controller
         $pesanan->total_harga = $total;
         $pesanan->save();
 
+        // $pesananBaru = Pemesanan::orderBy('id', 'desc')->first();
+        return redirect('/booking-information');
+    }
+
+    public function binfo()
+    {
         $pesananBaru = Pemesanan::orderBy('id', 'desc')->first();
         return view('user.booking-informations', ['pesanan'=> $pesananBaru]);
     }
-
     
     
 }
